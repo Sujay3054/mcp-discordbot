@@ -61,30 +61,23 @@ The server will start, and you can now connect to it with a tool like the MCP In
 
 Here is a complete list of the tools available on this server.
 
-### ### Emoji & Sticker Management
+## Emoji & Sticker Management Tools
 
-* **`DISCORDBOT_CREATE_GUILD_EMOJI`**: Creates a new custom emoji.
-    * `guild_id` (str): The ID of the server.
-    * `name` (str): The emoji name.
-    * `image` (str): Base64 encoded image data.
-    * `roles` (Optional[List[str]]): Roles allowed to use this emoji.
+| Tool Name | Description | Input | Output |
+|-----------|-------------|-------|--------|
+| `DISCORDBOT_CREATE_GUILD_EMOJI` | Creates a new emoji in a guild. | `guild_id`, `name`, `image`, optional `roles` | Created emoji object |
+| `DISCORDBOT_GET_GUILD_EMOJI` | Retrieves a specific emoji in a guild. | `guild_id`, `emoji_id` | Emoji object |
+| `DISCORDBOT_UPDATE_GUILD_EMOJI` | Updates an existing emoji. | `guild_id`, `emoji_id`, fields to update (`name`, `roles`) | Updated emoji object |
+| `DISCORDBOT_DELETE_GUILD_EMOJI` | Deletes an emoji from a guild. | `guild_id`, `emoji_id` | Success status |
+| `DISCORDBOT_LIST_GUILD_EMOJIS` | Lists all emojis in a guild. | `guild_id` | Array of emoji objects |
+| `DISCORDBOT_CREATE_GUILD_STICKER` | Creates a new sticker in a guild. | `guild_id`, `name`, `description`, `tags`, `file` | Created sticker object |
+| `DISCORDBOT_GET_GUILD_STICKER` | Retrieves a specific sticker. | `guild_id`, `sticker_id` | Sticker object |
+| `DISCORDBOT_UPDATE_GUILD_STICKER` | Updates a guild sticker. | `guild_id`, `sticker_id`, fields to update (`name`, `description`, `tags`) | Updated sticker object |
+| `DISCORDBOT_DELETE_GUILD_STICKER` | Deletes a sticker from a guild. | `guild_id`, `sticker_id` | Success status |
+| `DISCORDBOT_LIST_GUILD_STICKERS` | Lists all stickers in a guild. | `guild_id` | Array of sticker objects |
+| `DISCORDBOT_LIST_STICKER_PACKS` | Lists all official Discord sticker packs. | None | Array of sticker pack objects |
+| `DISCORDBOT_GET_STICKER` | Retrieves a specific sticker by ID. | `sticker_id` | Sticker object |
 
-* **`DISCORDBOT_GET_GUILD_EMOJI`**: Retrieves a specific custom emoji.
-    * `guild_id` (str): The server ID.
-    * `emoji_id` (str): The ID of the emoji to fetch.
-
-* **`DISCORDBOT_UPDATE_GUILD_EMOJI`**: Updates an emoji's name or roles.
-    * `guild_id` (str): The server ID.
-    * `emoji_id` (str): The ID of the emoji to update.
-    * `name` (Optional[str]): New name for the emoji.
-    * `roles` (Optional[List[str]]): New list of roles that can use the emoji.
-
-* **`DISCORDBOT_DELETE_GUILD_EMOJI`**: Deletes a custom emoji.
-    * `guild_id` (str): The server ID.
-    * `emoji_id` (str): The ID of the emoji to delete.
-
-* **`DISCORDBOT_LIST_GUILD_EMOJIS`**: Retrieves all custom emojis for a server.
-    * `guild_id` (str): The server ID.
 
 ## Discord Guild Tools
 
@@ -137,3 +130,26 @@ Here is a complete list of the tools available on this server.
 | `DISCORDBOT_LIST_GUILD_VOICE_REGIONS` | Lists voice regions in a guild. | `guild_id` | Array of voice region objects |
 | `DISCORDBOT_LIST_GUILD_INTEGRATIONS` | Lists integrations in a guild. | `guild_id` | Array of integration objects |
 | `DISCORDBOT_DELETE_GUILD_INTEGRATION` | Deletes a guild integration. | `guild_id`, `integration_id` | Success status |
+
+## Webhook Management Tools
+
+| Tool Name | Description | Input | Output |
+|-----------|-------------|-------|--------|
+| `DISCORDBOT_CREATE_WEBHOOK` | Creates a webhook in a channel. | `channel_id`, `name`, optional `avatar` | Created webhook object |
+| `DISCORDBOT_GET_WEBHOOK` | Retrieves a webhook by ID. | `webhook_id` | Webhook object |
+| `DISCORDBOT_UPDATE_WEBHOOK` | Updates a webhook by ID. | `webhook_id`, fields to update (`name`, `avatar`) | Updated webhook object |
+| `DISCORDBOT_DELETE_WEBHOOK` | Deletes a webhook by ID. | `webhook_id` | Success status |
+| `DISCORDBOT_GET_WEBHOOK_BY_TOKEN` | Retrieves a webhook using its token. | `webhook_id`, `webhook_token` | Webhook object |
+| `DISCORDBOT_UPDATE_WEBHOOK_BY_TOKEN` | Updates a webhook using its token. | `webhook_id`, `webhook_token`, fields to update | Updated webhook object |
+| `DISCORDBOT_DELETE_WEBHOOK_BY_TOKEN` | Deletes a webhook using its token. | `webhook_id`, `webhook_token` | Success status |
+| `DISCORDBOT_EXECUTE_WEBHOOK` | Sends a message using a webhook. | `webhook_id`, `webhook_token`, `content`/`embeds`/`files`, optional `thread_id`, `wait` | Message object or success status |
+| `DISCORDBOT_EXECUTE_SLACK_COMPATIBLE_WEBHOOK` | Sends a Slack-compatible message via webhook. | `webhook_id`, `webhook_token`, Slack payload | Message object or success status |
+| `DISCORDBOT_EXECUTE_GITHUB_COMPATIBLE_WEBHOOK` | Sends a GitHub-compatible message via webhook. | `webhook_id`, `webhook_token`, GitHub payload | Message object or success status |
+| `DISCORDBOT_GET_WEBHOOK_MESSAGE` | Retrieves a message sent by a webhook. | `webhook_id`, `webhook_token`, `message_id`, optional `thread_id` | Message object |
+| `DISCORDBOT_UPDATE_WEBHOOK_MESSAGE` | Updates a message sent by a webhook. | `webhook_id`, `webhook_token`, `message_id`, new content/embeds | Updated message object |
+| `DISCORDBOT_DELETE_WEBHOOK_MESSAGE` | Deletes a webhook message. | `webhook_id`, `webhook_token`, `message_id` | Success status |
+| `DISCORDBOT_GET_ORIGINAL_WEBHOOK_MESSAGE` | Retrieves the original interaction message sent by a webhook. | `webhook_id`, `webhook_token`, optional `thread_id` | Original message object |
+| `DISCORDBOT_UPDATE_ORIGINAL_WEBHOOK_MESSAGE` | Updates the original interaction message. | `webhook_id`, `webhook_token`, new content/embeds | Updated message object |
+| `DISCORDBOT_DELETE_ORIGINAL_WEBHOOK_MESSAGE` | Deletes the original interaction message. | `webhook_id`, `webhook_token` | Success status |
+| `DISCORDBOT_LIST_CHANNEL_WEBHOOKS` | Lists all webhooks in a channel. | `channel_id` | Array of webhook objects |
+| `DISCORDBOT_GET_GUILD_WEBHOOKS` | Lists all webhooks in a guild. | `guild_id` | Array of webhook objects |

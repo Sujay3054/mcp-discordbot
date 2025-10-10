@@ -153,3 +153,27 @@ Here is a complete list of the tools available on this server.
 | `DISCORDBOT_DELETE_ORIGINAL_WEBHOOK_MESSAGE` | Deletes the original interaction message. | `webhook_id`, `webhook_token` | Success status |
 | `DISCORDBOT_LIST_CHANNEL_WEBHOOKS` | Lists all webhooks in a channel. | `channel_id` | Array of webhook objects |
 | `DISCORDBOT_GET_GUILD_WEBHOOKS` | Lists all webhooks in a guild. | `guild_id` | Array of webhook objects |
+
+## Invites & Templates Tools
+
+| Tool Name | Description | Input | Output |
+|-----------|-------------|-------|--------|
+| `DISCORDBOT_INVITE_RESOLVE` | Resolves an invite code to retrieve invite information. | `invite_code` | Invite object |
+| `DISCORDBOT_INVITE_REVOKE` | Revokes an existing invite. | `invite_code` | Success status |
+| `DISCORDBOT_CREATE_GUILD_TEMPLATE` | Creates a new guild template. | `guild_id`, `name`, `description` | Template object |
+| `DISCORDBOT_GET_GUILD_TEMPLATE` | Retrieves a specific guild template by code. | `template_code` | Template object |
+| `DISCORDBOT_UPDATE_GUILD_TEMPLATE` | Updates an existing guild template. | `template_code`, fields to update (`name`, `description`) | Updated template object |
+| `DISCORDBOT_SYNC_GUILD_TEMPLATE` | Syncs a guild with its template. | `guild_id`, `template_code` | Updated template object |
+| `DISCORDBOT_DELETE_GUILD_TEMPLATE` | Deletes a guild template. | `template_code` | Success status |
+| `DISCORDBOT_LIST_GUILD_TEMPLATES` | Lists all templates of a guild. | `guild_id` | Array of template objects |
+
+## Miscellaneous / Utility Tools
+
+| Tool Name | Description | Input | Output |
+|-----------|-------------|-------|--------|
+| `DISCORDBOT_FOLLOW_CHANNEL` | Follows a news channel to receive updates in another channel. | `channel_id`, `webhook_channel_id` | Success status |
+| `DISCORDBOT_TRIGGER_TYPING_INDICATOR` | Triggers the typing indicator in a channel. | `channel_id` | Success status |
+| `DISCORDBOT_CROSSPOST_MESSAGE` | Crossposts a message from a news channel to followers. | `channel_id`, `message_id` | Crossposted message object |
+| `DISCORDBOT_LIST_VOICE_REGIONS` | Lists available voice regions for a guild. | `guild_id` | Array of voice region objects |
+| `DISCORDBOT_CREATE_DM` | Creates a direct message channel with a user. | `recipient_id` | DM channel object |
+| `DISCORDBOT_CREATE_GROUP_DM_USER` | Creates a group DM with multiple users. | `access_tokens` (list of user tokens), optional `nicks` | Group DM channel object |

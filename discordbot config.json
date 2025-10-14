@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "discord-bot": {
+      "command": "bash",
+      "args": [
+        "-c",
+        "cd /app/LocalMCPs/discord-bot-mcp && uv run server.py"
+      ],
+      "type": "stdio",
+      "env": {
+        "DISCORD_BOT_TOKEN": {
+          "source": "project",
+          "collection_method": "none",
+          "env_var": "DISCORD_BOT_TOKEN"
+        }
+      }
+    }
+  }
+}

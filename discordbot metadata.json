@@ -1,0 +1,750 @@
+{
+  "discord_bot_tools": {
+    "description": "A collection of tools to interact with the Discord API for managing guilds, channels, users, and messages.",
+    "tools": [
+      {
+        "name": "DISCORDBOT_CREATE_GUILD_EMOJI",
+        "description": "Create a new custom emoji in a specified Discord guild.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the Discord guild (server).",
+          "name": "string (Required) - The emoji name (2–32 chars, alphanumeric or underscores).",
+          "image": "string (Required) - Base64 encoded image data (PNG or GIF), e.g. 'data:image/png;base64,...'.",
+          "roles": "array (optional) - A list of role IDs allowed to use this emoji."
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_GUILD_EMOJI",
+        "description": "Retrieves a specific custom emoji from a Discord guild.",
+        "parameters": {
+          "guild_id": "string (Required) - The Discord guild (server) ID.",
+          "emoji_id": "string (Required) - The ID of the emoji to fetch."
+        }
+      },
+      {
+        "name": "DISCORDBOT_UPDATE_GUILD_EMOJI",
+        "description": "Update a guild emoji's name and/or roles.",
+        "parameters": {
+          "guild_id": "string (Required) - The Discord guild (server) ID.",
+          "emoji_id": "string (Required) - The ID of the emoji to update.",
+          "name": "string (optional) - The new name for the emoji (2-32 chars).",
+          "roles": "array (optional) - A list of role IDs allowed to use the emoji. An empty list makes it available to everyone."
+        }
+      },
+      {
+        "name": "DISCORDBOT_DELETE_GUILD_EMOJI",
+        "description": "Deletes a custom emoji from a Discord guild.",
+        "parameters": {
+          "guild_id": "string (Required) - The Discord guild (server) ID.",
+          "emoji_id": "string (Required) - The ID of the emoji to delete."
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_GUILD_EMOJIS",
+        "description": "Retrieves all custom emojis for a specified Discord guild.",
+        "parameters": {
+          "guild_id": "string (Required) - The Discord guild (server) ID."
+        }
+      },
+      {
+        "name": "DISCORDBOT_CREATE_GUILD_STICKER",
+        "description": "Creates a new sticker in a specified Discord guild.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild.",
+          "name": "string (optional) - The name of the sticker (2-30 characters).",
+          "description": "string (optional) - The description of the sticker (2-100 characters).",
+          "tags": "string (optional) - Autocomplete tags for the sticker (comma-separated, max 200 chars).",
+          "file": "string (optional) - The file path for the sticker (PNG, APNG, Lottie JSON; max 512KB)."
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_GUILD_STICKER",
+        "description": "Retrieves a Discord sticker from a specified guild.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild (server) where the sticker exists.",
+          "sticker_id": "string (Required) - The ID of the sticker to retrieve."
+        }
+      },
+      {
+        "name": "DISCORDBOT_UPDATE_GUILD_STICKER",
+        "description": "Updates a sticker in a specified Discord guild. Supports partial updates.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild where the sticker exists.",
+          "sticker_id": "string (Required) - ID of the sticker to update.",
+          "name": "string (optional) - New name of the sticker (2-30 characters).",
+          "description": "string (optional) - New description of the sticker (2-100 characters).",
+          "tags": "string (optional) - New autocomplete tags (comma-separated, max 200 chars)."
+        }
+      },
+      {
+        "name": "DISCORDBOT_DELETE_GUILD_STICKER",
+        "description": "Deletes a sticker from a specified Discord guild.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild where the sticker exists.",
+          "sticker_id": "string (Required) - ID of the sticker to delete."
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_GUILD_STICKERS",
+        "description": "Retrieves a list of all custom stickers in the specified Discord guild.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the Discord guild."
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_STICKER_PACKS",
+        "description": "Lists all standard sticker packs available to Nitro subscribers.",
+        "parameters": {}
+      },
+      {
+        "name": "DISCORDBOT_GET_STICKER",
+        "description": "Retrieves a specific Discord sticker by its ID.",
+        "parameters": {
+          "sticker_id": "string (Required) - The unique ID of the sticker to retrieve."
+        }
+      },
+      {
+        "name": "DISCORDBOT_FOLLOW_CHANNEL",
+        "description": "Follows an Announcement Channel and posts its messages to another channel via a webhook.",
+        "parameters": {
+          "channel_id": "string (Required) - ID of the Announcement Channel to follow (source channel).",
+          "webhook_channel_id": "string (Required) - ID of the channel where messages will be posted (destination channel)."
+        }
+      },
+      {
+        "name": "DISCORDBOT_TRIGGER_TYPING_INDICATOR",
+        "description": "Triggers the typing indicator in a specified Discord channel.",
+        "parameters": {
+          "channel_id": "string (Required) - ID of the Discord channel where the typing indicator should appear."
+        }
+      },
+      {
+        "name": "DISCORDBOT_CROSSPOST_MESSAGE",
+        "description": "Crossposts a message from an announcement (news) channel.",
+        "parameters": {
+          "channel_id": "string (Required) - ID of the announcement channel containing the message.",
+          "message_id": "string (Required) - ID of the message to be crossposted."
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_VOICE_REGIONS",
+        "description": "Lists all available voice regions in Discord.",
+        "parameters": {}
+      },
+      {
+        "name": "DISCORDBOT_CREATE_DM",
+        "description": "Creates a DM channel with a single user or a group DM.",
+        "parameters": {
+          "recipient_id": "string (optional) - The User ID for a 1-on-1 DM. Use this OR `access_tokens`.",
+          "access_tokens": "array (optional) - A list of OAuth2 tokens for multiple users in a group DM (1–9 others). Use this OR `recipient_id`.",
+          "nicks": "object (optional) - A dictionary of custom nicknames for group DM users. Only used with `access_tokens`."
+        }
+      },
+      {
+        "name": "DISCORDBOT_CREATE_GROUP_DM_USER",
+        "description": "Removes a user from a Discord group DM channel.",
+        "parameters": {
+          "channel_id": "string (Required) - The ID of the group DM channel.",
+          "user_id": "string (Required) - The ID of the user to remove."
+        }
+      },
+      {
+        "name": "DISCORDBOT_CREATE_GUILD",
+        "description": "Creates a new Discord guild (server). Unverified bots are limited to 10 guilds.",
+        "parameters": {
+          "name": "string (Required) - The name of the new guild (2-100 characters).",
+          "options": "object (optional) - Optional parameters such as 'icon', 'roles', or 'channels'."
+        }
+      },
+      {
+        "name": "DISCORDBOT_DELETE_GUILD",
+        "description": "Deletes a guild permanently. This is an irreversible action and requires the bot to be the guild owner.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild to be deleted."
+        }
+      },
+      {
+        "name": "DISCORDBOT_UPDATE_GUILD",
+        "description": "Updates a guild's settings. Requires 'Manage Server' permission.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild to update.",
+          "settings": "object (Required) - Keyword arguments for settings to update, such as 'name', 'description', or 'icon'."
+        }
+      },
+      {
+        "name": "DISCORDBOT_SEARCH_GUILD_MEMBERS",
+        "description": "Searches for members in a guild whose username or nickname starts with a query.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild to search in.",
+          "query": "string (Required) - The string to search for at the beginning of usernames/nicknames.",
+          "limit": "number (optional) - The maximum number of members to return (1-1000, defaults to 1)."
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_GUILD",
+        "description": "Retrieves detailed information about a specific guild (server).",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild to retrieve.",
+          "with_counts": "boolean (optional) - When true, includes approximate member and presence counts."
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_GUILD_CHANNELS",
+        "description": "Retrieves a list of all channels in a specific guild (server).",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild to retrieve channels from."
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_GUILD_MEMBERS",
+        "description": "Retrieves a list of members from a guild. Requires the 'Server Members Intent'.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild to retrieve members from.",
+          "limit": "number (optional) - Max number of members to return (1-1000).",
+          "after": "string (optional) - The user ID to start fetching members after, for pagination."
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_GUILD_MEMBER",
+        "description": "Retrieves information about a specific member of a guild.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild.",
+          "user_id": "string (Required) - The ID of the user to retrieve."
+        }
+      },
+      {
+        "name": "DISCORDBOT_UPDATE_GUILD_MEMBER",
+        "description": "Updates attributes of a specific guild member. Requires various permissions depending on the attribute being changed.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild.",
+          "user_id": "string (Required) - The ID of the user to update.",
+          "attributes": "object (Required) - Fields to update, e.g., nick='NewNick', roles=['role_id_1']."
+        }
+      },
+      {
+        "name": "DISCORDBOT_DELETE_GUILD_MEMBER",
+        "description": "Removes (kicks) a member from a guild. Requires 'Kick Members' permission.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild.",
+          "user_id": "string (Required) - The ID of the user to remove."
+        }
+      },
+      {
+        "name": "DISCORDBOT_BAN_USER_FROM_GUILD",
+        "description": "Bans a user from a guild and optionally deletes their recent messages. Requires 'Ban Members' permission.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild to ban the user from.",
+          "user_id": "string (Required) - The ID of the user to ban.",
+          "delete_message_days": "number (optional) - Number of days of messages to delete (0–7).",
+          "delete_message_seconds": "number (optional) - Number of seconds of messages to delete."
+        }
+      },
+      {
+        "name": "DISCORDBOT_UNBAN_USER_FROM_GUILD",
+        "description": "Removes a ban for a user from a guild. Requires 'Ban Members' permission.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild.",
+          "user_id": "string (Required) - The ID of the user to unban."
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_GUILD_BANS",
+        "description": "Retrieves a list of banned users from a specific guild. Requires 'Ban Members' permission.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild to retrieve bans from.",
+          "limit": "number (optional) - Max number of bans to return (1-1000).",
+          "before": "string (optional) - The user ID to get bans before, for pagination.",
+          "after": "string (optional) - The user ID to get bans after, for pagination."
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_GUILD_BAN",
+        "description": "Retrieves the ban information for a specific user in a guild. Requires 'Ban Members' permission.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild.",
+          "user_id": "string (Required) - The ID of the user to check for a ban."
+        }
+      },
+      {
+        "name": "DISCORDBOT_PRUNE_GUILD",
+        "description": "Kicks inactive members from a guild. Requires 'Kick Members' permission.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild to prune.",
+          "days": "number (optional) - Number of inactivity days before pruning (1-30).",
+          "compute_prune_count": "boolean (optional) - If true, returns the count of members that would be pruned without actually kicking them.",
+          "include_roles": "array (optional) - A list of role IDs to restrict pruning to."
+        }
+      },
+      {
+        "name": "DISCORDBOT_PREVIEW_PRUNE_GUILD",
+        "description": "Previews the number of members that would be pruned from a guild without kicking them. Requires 'Kick Members' permission.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild to preview the prune for.",
+          "days": "number (optional) - Number of inactivity days to check (1-30).",
+          "include_roles": "array (optional) - A list of role IDs to restrict the count to."
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_GUILD_ROLES",
+        "description": "Retrieves a list of all roles in a specific guild.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild to retrieve roles from."
+        }
+      },
+      {
+        "name": "DISCORDBOT_CREATE_GUILD_ROLE",
+        "description": "Creates a new role in a guild. Requires the 'Manage Roles' permission.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild to create the role in.",
+          "options": "object (optional) - Parameters for the role, such as name, permissions, color, hoist, etc."
+        }
+      },
+      {
+        "name": "DISCORDBOT_UPDATE_GUILD_ROLE",
+        "description": "Updates an existing role in a guild. Requires 'Manage Roles' permission.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild where the role exists.",
+          "role_id": "string (Required) - The ID of the role to update.",
+          "options": "object (Required) - Parameters to update for the role, such as 'name', 'permissions', or 'color'."
+        }
+      },
+      {
+        "name": "DISCORDBOT_LEAVE_GUILD",
+        "description": "Makes the bot leave a guild (server).",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild for the bot to leave."
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_GUILD_INVITES",
+        "description": "Retrieves a list of all active invite links for a guild. Requires 'Manage Server' permission.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild to retrieve invites from."
+        }
+      },
+      {
+        "name": "DISCORDBOT_CREATE_GUILD_FROM_TEMPLATE",
+        "description": "Creates a new guild from a guild template. Unverified bots are limited to 10 guilds.",
+        "parameters": {
+          "code": "string (Required) - The code for the guild template.",
+          "name": "string (Required) - The name for the new guild (2-100 characters).",
+          "icon": "string (optional) - A Base64 encoded 128x128 image for the guild icon."
+        }
+      },
+      {
+        "name": "DISCORDBOT_SYNC_GUILD_TEMPLATE",
+        "description": "Synchronizes a guild template with its source guild. Requires the 'Manage Server' permission.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the source guild.",
+          "code": "string (Required) - The code of the template to sync."
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_GUILD_TEMPLATE",
+        "description": "Retrieves information about a guild template.",
+        "parameters": {
+          "code": "string (Required) - The unique code of the guild template."
+        }
+      },
+      {
+        "name": "DISCORDBOT_UPDATE_GUILD_TEMPLATE",
+        "description": "Updates a guild template's metadata (name and/or description). Requires the 'Manage Server' permission.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild where the template exists.",
+          "code": "string (Required) - The code of the template to update.",
+          "name": "string (optional) - The new name for the template.",
+          "description": "string (optional) - The new description for the template."
+        }
+      },
+      {
+        "name": "DISCORDBOT_DELETE_GUILD_TEMPLATE",
+        "description": "Deletes a guild template. Requires the 'Manage Server' permission.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild where the template exists.",
+          "code": "string (Required) - The code of the template to delete."
+        }
+      },
+      {
+        "name": "DISCORDBOT_CREATE_GUILD_TEMPLATE",
+        "description": "Creates a new guild template from an existing guild's structure. Requires the 'Manage Server' permission.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild to create the template from.",
+          "name": "string (Required) - The name for the new template (1-100 characters).",
+          "description": "string (optional) - The description for the template (0-120 characters)."
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_GUILD_PREVIEW",
+        "description": "Retrieves a public preview of a guild, provided the guild is discoverable.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild to preview."
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_GUILDS_ONBOARDING",
+        "description": "Retrieves the onboarding configuration for a specific guild. Requires the 'Manage Server' permission.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild to retrieve the onboarding settings from."
+        }
+      },
+      {
+        "name": "DISCORDBOT_PUT_GUILDS_ONBOARDING",
+        "description": "Updates a guild's onboarding configuration. Replaces the entire configuration. Requires the 'Manage Server' permission.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild to update.",
+          "prompts": "array (Required) - The list of onboarding prompt objects.",
+          "default_channel_ids": "array (Required) - The list of default channel IDs.",
+          "enabled": "boolean (Required) - Whether onboarding is enabled.",
+          "mode": "number (optional) - The onboarding mode (must be 0)."
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_GUILD_WIDGET",
+        "description": "Retrieves the widget object for a given guild. The guild widget must be enabled.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild to retrieve the widget for."
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_GUILD_WIDGET_SETTINGS",
+        "description": "Retrieves the widget settings for a specific guild. Requires the 'Manage Server' permission.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild to get widget settings for."
+        }
+      },
+      {
+        "name": "DISCORDBOT_UPDATE_GUILD_WIDGET_SETTINGS",
+        "description": "Updates the widget settings for a specific guild. Requires the 'Manage Server' permission.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild to update the widget settings for.",
+          "channel_id": "string (Required) - The ID of the channel to use for the widget.",
+          "enabled": "boolean (optional) - Whether the widget is enabled (default True)."
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_GUILD_WELCOME_SCREEN",
+        "description": "Retrieves the welcome screen configuration for a guild. Requires 'Manage Server' permission and the Welcome Screen feature to be enabled.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild to retrieve the welcome screen from."
+        }
+      },
+      {
+        "name": "DISCORDBOT_UPDATE_GUILD_WELCOME_SCREEN",
+        "description": "Updates the welcome screen for a guild. Requires 'Manage Server' permission and the Welcome Screen feature to be enabled.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild to update the welcome screen for.",
+          "enabled": "boolean (optional) - Whether the welcome screen is enabled.",
+          "welcome_channels": "array (optional) - An array of welcome channel objects.",
+          "description": "string (optional) - The server description shown in the welcome screen."
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_GUILD_VANITY_URL",
+        "description": "Retrieves the vanity URL information for a specific guild. Requires 'Manage Server' permission.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild to retrieve the vanity URL from."
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_GUILD_WEBHOOKS",
+        "description": "Retrieves a list of all webhooks in a specific guild. Requires the 'Manage Webhooks' permission.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild to retrieve webhooks from."
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_GUILD_SCHEDULED_EVENT",
+        "description": "Retrieves a specific scheduled event from a guild.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild where the event exists.",
+          "guild_scheduled_event_id": "string (Required) - The ID of the scheduled event to retrieve.",
+          "with_user_count": "boolean (optional) - If true, includes the number of subscribed users."
+        }
+      },
+      {
+        "name": "DISCORDBOT_CREATE_GUILD_SCHEDULED_EVENT",
+        "description": "Creates a new scheduled event in a guild. Requires the 'Manage Events' permission.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild to create the event in.",
+          "event_data": "object (Required) - The event data, which must include 'name', 'privacy_level', 'scheduled_start_time', and 'entity_type'."
+        }
+      },
+      {
+        "name": "DISCORDBOT_UPDATE_GUILD_SCHEDULED_EVENT",
+        "description": "Updates a guild's scheduled event. Requires the 'Manage Events' permission.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild where the event exists.",
+          "guild_scheduled_event_id": "string (Required) - The ID of the event to update.",
+          "updates": "object (Required) - Fields to update, e.g., name='New Event Name', status=2."
+        }
+      },
+      {
+        "name": "DISCORDBOT_DELETE_GUILD_SCHEDULED_EVENT",
+        "description": "Deletes a scheduled event from a guild. Requires the 'Manage Events' permission.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild where the event exists.",
+          "guild_scheduled_event_id": "string (Required) - The ID of the event to delete."
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_GUILD_SCHEDULED_EVENTS",
+        "description": "Retrieves a list of all scheduled events for a specific guild.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild to retrieve events from.",
+          "with_user_count": "boolean (optional) - If true, includes the number of subscribed users for each event."
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_GUILD_SCHEDULED_EVENT_USERS",
+        "description": "Retrieves a list of users subscribed to a specific scheduled event.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild.",
+          "guild_scheduled_event_id": "string (Required) - The ID of the scheduled event.",
+          "limit": "number (optional) - Max number of users to return (1-100).",
+          "before": "string (optional) - The user ID to get users before, for pagination.",
+          "after": "string (optional) - The user ID to get users after, for pagination.",
+          "with_member": "boolean (optional) - If true, includes the full guild member object for each user."
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_GUILD_VOICE_REGIONS",
+        "description": "Retrieves a list of available voice regions for a specific guild.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild to retrieve voice regions for."
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_GUILD_INTEGRATIONS",
+        "description": "Retrieves a list of all integrations for a specific guild. Requires the 'Manage Server' permission.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild to retrieve integrations from."
+        }
+      },
+      {
+        "name": "DISCORDBOT_DELETE_GUILD_INTEGRATION",
+        "description": "Deletes an integration from a specific guild. Requires the 'Manage Server' permission.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild.",
+          "integration_id": "string (Required) - The ID of the integration to delete."
+        }
+      },
+      {
+        "name": "DISCORDBOT_CREATE_WEBHOOK",
+        "description": "Creates a new webhook in a channel. Requires the 'Manage Webhooks' permission.",
+        "parameters": {
+          "channel_id": "string (Required) - The ID of the channel to create the webhook in.",
+          "name": "string (Required) - The name for the webhook (1-80 characters).",
+          "avatar": "string (optional) - A Base64 encoded image data URI for the webhook avatar."
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_WEBHOOK",
+        "description": "Retrieves a specific webhook object. Requires the 'Manage Webhooks' permission.",
+        "parameters": {
+          "webhook_id": "string (Required) - The ID of the webhook to retrieve."
+        }
+      },
+      {
+        "name": "DISCORDBOT_UPDATE_WEBHOOK",
+        "description": "Updates an existing webhook. Requires the 'Manage Webhooks' permission.",
+        "parameters": {
+          "webhook_id": "string (Required) - The ID of the webhook to update.",
+          "updates": "object (Required) - Optional fields to update, such as 'name', 'avatar', or 'channel_id'."
+        }
+      },
+      {
+        "name": "DISCORDBOT_DELETE_WEBHOOK",
+        "description": "Deletes a specific webhook. Requires the 'Manage Webhooks' permission.",
+        "parameters": {
+          "webhook_id": "string (Required) - The ID of the webhook to delete."
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_WEBHOOK_BY_TOKEN",
+        "description": "Retrieves a webhook object using its token for authentication. Does not require bot authentication.",
+        "parameters": {
+          "webhook_id": "string (Required) - The ID of the webhook.",
+          "webhook_token": "string (Required) - The secret token of the webhook."
+        }
+      },
+      {
+        "name": "DISCORDBOT_UPDATE_WEBHOOK_BY_TOKEN",
+        "description": "Updates a webhook using its token for authentication. Does not require bot authentication.",
+        "parameters": {
+          "webhook_id": "string (Required) - The ID of the webhook to update.",
+          "webhook_token": "string (Required) - The secret token of the webhook.",
+          "name": "string (optional) - The new default name for the webhook.",
+          "avatar": "string (optional) - A new Base64 encoded image data URI for the avatar."
+        }
+      },
+      {
+        "name": "DISCORDBOT_DELETE_WEBHOOK_BY_TOKEN",
+        "description": "Deletes a webhook using its token for authentication. Does not require bot authentication.",
+        "parameters": {
+          "webhook_id": "string (Required) - The ID of the webhook to delete.",
+          "webhook_token": "string (Required) - The secret token of the webhook."
+        }
+      },
+      {
+        "name": "DISCORDBOT_EXECUTE_WEBHOOK",
+        "description": "Executes a Discord webhook to send a message.",
+        "parameters": {
+          "webhook_id": "string (Required) - Webhook ID from Discord.",
+          "webhook_token": "string (Required) - Webhook token.",
+          "content": "string (optional) - Message text. At least one of 'content', 'embeds', or 'files' is required.",
+          "embeds": "array (optional) - List of embed objects.",
+          "wait": "boolean (optional) - Wait for server confirmation before returning (default: False).",
+          "thread_id": "string (optional) - ID of a thread to post the message to."
+        }
+      },
+      {
+        "name": "DISCORDBOT_EXECUTE_SLACK_COMPATIBLE_WEBHOOK",
+        "description": "Executes a webhook with a Slack-compatible payload.",
+        "parameters": {
+          "webhook_id": "string (Required) - The ID of the webhook.",
+          "webhook_token": "string (Required) - The secret token of the webhook.",
+          "wait": "boolean (optional) - If true, waits for server confirmation of message send.",
+          "thread_id": "string (optional) - Sends the message to a thread within the webhook's channel.",
+          "payload": "object (Required) - The Slack-compatible message payload."
+        }
+      },
+      {
+        "name": "DISCORDBOT_EXECUTE_GITHUB_COMPATIBLE_WEBHOOK",
+        "description": "Executes a webhook with a GitHub-compatible payload.",
+        "parameters": {
+          "webhook_id": "string (Required) - The ID of the webhook.",
+          "webhook_token": "string (Required) - The secret token of the webhook.",
+          "wait": "boolean (Required) - If true, waits for server confirmation of message send.",
+          "thread_id": "string (Required) - Sends the message to a thread within the webhook's channel.",
+          "payload": "object (Required) - The GitHub-compatible message payload."
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_WEBHOOK_MESSAGE",
+        "description": "Retrieves a specific message previously sent by a webhook. Uses the webhook's token for authentication.",
+        "parameters": {
+          "webhook_id": "string (Required) - The ID of the webhook.",
+          "webhook_token": "string (Required) - The secret token of the webhook.",
+          "message_id": "string (Required) - The ID of the message to retrieve.",
+          "thread_id": "string (optional) - The ID of the thread the message is in."
+        }
+      },
+      {
+        "name": "DISCORDBOT_UPDATE_WEBHOOK_MESSAGE",
+        "description": "Updates a specific message previously sent by a webhook. Uses the webhook's token for authentication.",
+        "parameters": {
+          "webhook_id": "string (Required) - The ID of the webhook.",
+          "webhook_token": "string (Required) - The secret token of the webhook.",
+          "message_id": "string (Required) - The ID of the message to edit.",
+          "thread_id": "string (optional) - The ID of the thread the message is in.",
+          "updates": "object (Required) - The new message content, e.g., content='New content', embeds=[...]."
+        }
+      },
+      {
+        "name": "DISCORDBOT_DELETE_WEBHOOK_MESSAGE",
+        "description": "Deletes a specific message previously sent by a webhook. Uses the webhook's token for authentication.",
+        "parameters": {
+          "webhook_id": "string (Required) - The ID of the webhook.",
+          "webhook_token": "string (Required) - The secret token of the webhook.",
+          "message_id": "string (Required) - The ID of the message to delete.",
+          "thread_id": "string (optional) - The ID of the thread the message is in."
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_ORIGINAL_WEBHOOK_MESSAGE",
+        "description": "Retrieves the original message sent by a webhook after an interaction. Uses the webhook's token for authentication.",
+        "parameters": {
+          "webhook_id": "string (Required) - The ID of the webhook.",
+          "webhook_token": "string (Required) - The secret token of the webhook.",
+          "thread_id": "string (optional) - The ID of the thread the message is in."
+        }
+      },
+      {
+        "name": "DISCORDBOT_UPDATE_ORIGINAL_WEBHOOK_MESSAGE",
+        "description": "Updates the original message sent by a webhook after an interaction. Uses the webhook's token for authentication.",
+        "parameters": {
+          "webhook_id": "string (Required) - The ID of the webhook.",
+          "webhook_token": "string (Required) - The secret token of the webhook.",
+          "thread_id": "string (optional) - The ID of the thread the message is in.",
+          "updates": "object (Required) - The new message content, e.g., content='New content', embeds=[...]."
+        }
+      },
+      {
+        "name": "DISCORDBOT_DELETE_ORIGINAL_WEBHOOK_MESSAGE",
+        "description": "Deletes the original message sent by a webhook after an interaction. Uses the webhook's token for authentication.",
+        "parameters": {
+          "webhook_id": "string (Required) - The ID of the webhook.",
+          "webhook_token": "string (Required) - The secret token of the webhook.",
+          "thread_id": "string (optional) - The ID of the thread the message is in."
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_CHANNEL_WEBHOOKS",
+        "description": "Retrieves a list of all webhooks for a specific channel. Requires the 'Manage Webhooks' permission.",
+        "parameters": {
+          "channel_id": "string (Required) - The ID of the channel to retrieve webhooks from."
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_GUILD_INTEGRATIONS",
+        "description": "Retrieves a list of all integrations for a specific guild. Requires the 'Manage Server' permission.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild to retrieve integrations from."
+        }
+      },
+      {
+        "name": "DISCORDBOT_INVITE_RESOLVE",
+        "description": "Retrieves details about a specific guild invite.",
+        "parameters": {
+          "code": "string (Required) - The unique code from the invite link.",
+          "with_counts": "boolean (optional) - If true, includes approximate member counts.",
+          "guild_scheduled_event_id": "string (optional) - The ID of a scheduled event to include in the invite data."
+        }
+      },
+      {
+        "name": "DISCORDBOT_INVITE_REVOKE",
+        "description": "Deletes (revokes) a guild invite. Requires the 'Manage Server' or 'Manage Channels' permission.",
+        "parameters": {
+          "code": "string (Required) - The unique code of the invite to delete."
+        }
+      },
+      {
+        "name": "DISCORDBOT_CREATE_CHANNEL_INVITE",
+        "description": "Creates a new invite for a channel. Requires the 'Create Instant Invite' permission.",
+        "parameters": {
+          "channel_id": "string (Required) - The ID of the channel to create the invite for.",
+          "options": "object (optional) - Optional parameters for the invite, such as 'max_age', 'max_uses', 'temporary', etc."
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_CHANNEL_INVITES",
+        "description": "Retrieves a list of all active invites for a specific channel. Requires the 'Manage Channel' permission.",
+        "parameters": {
+          "channel_id": "string (Required) - The ID of the channel to retrieve invites from."
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_GUILD_INVITES",
+        "description": "Retrieves a list of all active invite links for a specific guild. Requires the 'Manage Server' permission.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild to retrieve invites from."
+        }
+      },
+      {
+        "name": "DISCORDBOT_UPDATE_GUILD_WIDGET_SETTINGS",
+        "description": "Updates the widget settings for a specific guild. Requires the 'Manage Server' permission.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild to update the widget settings for.",
+          "enabled": "boolean (optional) - Whether the widget is enabled.",
+          "channel_id": "string (optional) - The ID of the widget channel."
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_GUILD_VANITY_URL",
+        "description": "Retrieves the vanity URL information for a specific guild. Requires the 'Manage Server' permission.",
+        "parameters": {
+          "guild_id": "string (Required) - The ID of the guild to retrieve the vanity URL from."
+        }
+      }
+    ]
+  }
+}

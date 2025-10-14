@@ -6,7 +6,7 @@ from mcp.server.fastmcp import FastMCP
 import urllib.parse
 # ---------- CONFIG ----------
 # Securely loading the token from an environment variable
-DISCORD_BOT_TOKEN = "MTQyNTM2OTgyNDQ2NDIwNzg5Mg.GuHH9o.Z6in6WZ9uiEgAG2fUt6vVOzV3Y5h1hwsMotmjM"
+DISCORD_BOT_TOKEN = "MTQyNTM2OTgyNDQ2NDIwNzg5Mg.Gf0EJs.H2F1dcgeSihOTxtp5NL3GFYKDchvcGLhCRxIok"
 if not DISCORD_BOT_TOKEN:
     raise ValueError("DISCORDBOT_TOKEN environment variable not set.")
 
@@ -414,26 +414,21 @@ async def DISCORDBOT_CREATE_GUILD(
     name: str,
     **kwargs
 ):
-    """Creates a new Discord guild (server).
-
-    NOTE: Unverified bots are limited to 10 guilds. Use this tool sparingly.
+    """
+    Creates a new Discord guild (server).
+    NOTE: Unverified bots are limited to 10 guilds.
 
     Args:
         name (str): The name of the new guild (2-100 characters).
-        **kwargs: Any other optional parameters from the Discord API documentation,
-                  such as 'icon', 'roles', or 'channels'. These should be
-                  provided as keyword arguments.
+        **kwargs: Optional parameters such as 'icon', 'roles', or 'channels'.
     """
     endpoint = "/guilds"
-    
-    # Start with the required name
-    payload = {
-        "name": name,
-    }
-    # Add all other optional parameters provided by the user
-    payload.update(kwargs)
-        
-    return await discord_request("POST", endpoint, data=payload)
+
+    payload = {"name": name, **kwargs}
+
+    # ✅ Use json=payload instead of data=payload
+    return await discord_request("POST", endpoint, json=payload)
+
 
 @mcp.tool()
 async def DISCORDBOT_DELETE_GUILD(guild_id: str):
@@ -474,6 +469,35 @@ async def DISCORDBOT_UPDATE_GUILD(
     payload = kwargs
         
     return await discord_request("PATCH", endpoint, data=payload)
+
+@mcp.tool()
+async def DISCORDBOT_SEARCH_GUILD_MEMBERS(
+    guild_id: str,
+    query: str,
+    limit: Optional[int] = 1
+):
+    """
+    Searches for members in a guild whose username or nickname starts with a query.
+    The bot must be a member of the guild.
+
+    Args:
+        guild_id (str): The ID of the guild to search in.
+        query (str): The string to search for at the beginning of usernames/nicknames.
+        limit (Optional[int]): The maximum number of members to return (1-1000).
+    """
+    import urllib.parse
+
+    endpoint = f"/guilds/{guild_id}/members/search"
+    
+    params = {
+        "query": query,
+        "limit": limit
+    }
+        
+    query_string = urllib.parse.urlencode(params)
+    endpoint += f"?{query_string}"
+        
+    return await discord_request("GET", endpoint)
 
 @mcp.tool()
 async def DISCORDBOT_GET_GUILD(
@@ -586,11 +610,11 @@ async def DISCORDBOT_UPDATE_GUILD_MEMBER(
         raise ValueError("At least one attribute to update must be provided.")
 
     endpoint = f"/guilds/{guild_id}/members/{user_id}"
-    
-    # The keyword arguments are passed directly as the payload
     payload = kwargs
-        
-    return await discord_request("PATCH", endpoint, data=payload)
+
+    # Use json= instead of data=
+    return await discord_request("PATCH", endpoint, json=payload)
+
 
 @mcp.tool()
 async def DISCORDBOT_DELETE_GUILD_MEMBER(
@@ -619,26 +643,42 @@ async def DISCORDBOT_BAN_USER_FROM_GUILD(
     """
     Bans a user from a guild and optionally deletes their recent messages.
 
-    The bot must have the 'Ban Members' permission. You can specify a message
-    deletion period in days (0-7) or seconds, but not both.
+    The bot must have the 'Ban Members' permission.
+    You can specify a message deletion period in days (0–7) or seconds, but not both.
 
     Args:
         guild_id (str): The ID of the guild to ban the user from.
         user_id (str): The ID of the user to ban.
         delete_message_days (Optional[int]): Number of days of messages to delete.
         delete_message_seconds (Optional[int]): Number of seconds of messages to delete.
+
+    Returns:
+        dict: API response with 'successful', 'data', and 'error' keys.
     """
+
+    # Safety check — Discord doesn't allow both to be set
+    if delete_message_days is not None and delete_message_seconds is not None:
+        return {
+            "successful": False,
+            "data": None,
+            "error": "You cannot specify both delete_message_days and delete_message_seconds."
+        }
+
     endpoint = f"/guilds/{guild_id}/bans/{user_id}"
-    
     payload = {}
-    # The API accepts either days or seconds, but not both.
-    # We will prioritize the more modern 'seconds' parameter.
+
+    # Prioritize the modern seconds field if provided
     if delete_message_seconds is not None:
         payload["delete_message_seconds"] = delete_message_seconds
     elif delete_message_days is not None:
         payload["delete_message_days"] = delete_message_days
-        
-    return await discord_request("PUT", endpoint, data=payload)
+
+    try:
+        response = await discord_request("PUT", endpoint, json=payload)
+        return {"successful": True, "data": response, "error": None}
+    except Exception as e:
+        return {"successful": False, "data": None, "error": str(e)}
+
     
 @mcp.tool()
 async def DISCORDBOT_UNBAN_USER_FROM_GUILD(
@@ -724,8 +764,7 @@ async def DISCORDBOT_PRUNE_GUILD(
         guild_id (str): The ID of the guild to prune.
         days (Optional[int]): Number of inactivity days before pruning (1-30).
         compute_prune_count (Optional[bool]): If true, returns the number of members
-                                           that would be pruned without actually
-                                           kicking them.
+            that would be pruned without actually kicking them.
         include_roles (Optional[List[str]]): List of role IDs to restrict pruning to.
     """
     endpoint = f"/guilds/{guild_id}/prune"
@@ -737,8 +776,10 @@ async def DISCORDBOT_PRUNE_GUILD(
         payload["compute_prune_count"] = compute_prune_count
     if include_roles is not None:
         payload["include_roles"] = include_roles
-        
-    return await discord_request("POST", endpoint, data=payload)
+
+    # ✅ Corrected: use `json=payload` instead of `data=payload`
+    return await discord_request("POST", endpoint, json=payload)
+
 
 @mcp.tool()
 async def DISCORDBOT_PREVIEW_PRUNE_GUILD(
@@ -798,15 +839,15 @@ async def DISCORDBOT_CREATE_GUILD_ROLE(
 
     Args:
         guild_id (str): The ID of the guild to create the role in.
-        **kwargs: Optional parameters for the role, such as 'name', 'permissions',
-                  'color', 'hoist', etc.
+        **kwargs: Optional parameters for the role, such as:
+                  name, permissions, color, hoist, mentionable, position, etc.
     """
     endpoint = f"/guilds/{guild_id}/roles"
-    
-    # The keyword arguments are passed directly as the payload
     payload = kwargs
-        
-    return await discord_request("POST", endpoint, data=payload)
+
+    # Discord expects JSON, not form data
+    return await discord_request("POST", endpoint, json=payload)
+
 
 @mcp.tool()
 async def DISCORDBOT_UPDATE_GUILD_ROLE(
@@ -831,38 +872,11 @@ async def DISCORDBOT_UPDATE_GUILD_ROLE(
 
     endpoint = f"/guilds/{guild_id}/roles/{role_id}"
     
-    # The keyword arguments are passed directly as the payload
+    # Pass kwargs directly as JSON payload
     payload = kwargs
         
-    return await discord_request("PATCH", endpoint, data=payload)
+    return await discord_request("PATCH", endpoint, json=payload)
 
-@mcp.tool()
-async def DISCORDBOT_SEARCH_GUILD_MEMBERS(
-    guild_id: str,
-    query: str,
-    limit: Optional[int] = 1
-):
-    """
-    Searches for members in a guild whose username or nickname starts with a query.
-
-    The bot must be a member of the guild.
-
-    Args:
-        guild_id (str): The ID of the guild to search in.
-        query (str): The string to search for at the beginning of usernames/nicknames.
-        limit (Optional[int]): The maximum number of members to return (1-1000).
-    """
-    endpoint = f"/guilds/{guild_id}/members/search"
-    
-    params = {
-        "query": query,
-        "limit": limit
-    }
-        
-    query_string = urllib.parse.urlencode(params)
-    endpoint += f"?{query_string}"
-        
-    return await discord_request("GET", endpoint)
 
 @mcp.tool()
 async def DISCORDBOT_LEAVE_GUILD(guild_id: str):
@@ -946,8 +960,8 @@ async def DISCORDBOT_GET_GUILD_TEMPLATE(code: str):
 async def DISCORDBOT_UPDATE_GUILD_TEMPLATE(
     guild_id: str,
     code: str,
-    name: Optional[str] = None,
-    description: Optional[str] = None
+    name: str,
+    description: str
 ):
     """
     Updates a guild template's metadata (name and/or description).
@@ -1103,31 +1117,37 @@ async def DISCORDBOT_GET_GUILD_WIDGET_SETTINGS(guild_id: str):
 @mcp.tool()
 async def DISCORDBOT_UPDATE_GUILD_WIDGET_SETTINGS(
     guild_id: str,
-    enabled: Optional[bool] = None,
-    channel_id: Optional[str] = None
+    channel_id: str,
+    enabled: bool = True
 ):
     """
-    Updates the widget settings for a specific guild.
+    Updates the widget settings for a specific guild to point to a non-default channel.
 
     NOTE: Requires the 'Manage Server' permission.
 
     Args:
         guild_id (str): The ID of the guild to update the widget settings for.
-        enabled (Optional[bool]): Whether the widget is enabled.
-        channel_id (Optional[str]): The ID of the widget channel.
+        channel_id (str): The ID of the channel to use for the widget.
+        enabled (bool): Whether the widget is enabled (default True).
     """
-    if enabled is None and channel_id is None:
-        raise ValueError("At least one setting (enabled or channel_id) must be provided.")
+    if not channel_id:
+        raise ValueError("channel_id must be provided.")
 
     endpoint = f"/guilds/{guild_id}/widget"
     
-    payload = {}
-    if enabled is not None:
-        payload["enabled"] = enabled
-    if channel_id is not None:
-        payload["channel_id"] = channel_id
-        
+    payload = {
+        "enabled": enabled,
+        "channel_id": channel_id
+    }
+    
     return await discord_request("PATCH", endpoint, json=payload)
+
+# Example usage:
+# await DISCORDBOT_UPDATE_GUILD_WIDGET_SETTINGS(
+#     guild_id="1425423089830854656",
+#     channel_id="YOUR_NON_DEFAULT_CHANNEL_ID"
+# )
+
 
 @mcp.tool()
 async def DISCORDBOT_GET_GUILD_WELCOME_SCREEN(guild_id: str):
@@ -1513,7 +1533,7 @@ async def DISCORDBOT_GET_WEBHOOK_BY_TOKEN(
 async def DISCORDBOT_UPDATE_WEBHOOK_BY_TOKEN(
     webhook_id: str,
     webhook_token: str,
-    name: Optional[str] = None,
+    name: str,
     avatar: Optional[str] = None
 ):
     """
@@ -1574,47 +1594,49 @@ async def DISCORDBOT_DELETE_WEBHOOK_BY_TOKEN(
             else:
                 text = await resp.text()
                 raise Exception(f"Discord API Error {resp.status}: {text}")
-
-
 @mcp.tool()
 async def DISCORDBOT_EXECUTE_WEBHOOK(
     webhook_id: str,
     webhook_token: str,
-    wait: Optional[bool] = None,
-    thread_id: Optional[str] = None,
-    **kwargs
+    content: str = None,
+    embeds: list = None,
+    wait: bool = False,
+    thread_id: str = None,
 ):
     """
-    Executes a webhook to send a message.
-
-    NOTE: This method uses the webhook's token for authentication, not the bot's.
-    You must provide at least one of 'content', 'embeds', or 'files'.
+    Executes a Discord webhook to send a message.
 
     Args:
-        webhook_id (str): The ID of the webhook.
-        webhook_token (str): The secret token of the webhook.
-        wait (Optional[bool]): If true, waits for server confirmation of message send.
-        thread_id (Optional[str]): Sends the message to a thread within the webhook's channel.
-        **kwargs: The message content, e.g., content="Hello", username="Custom Name", embeds=[...].
+        webhook_id (str): Webhook ID from Discord.
+        webhook_token (str): Webhook token.
+        content (Optional[str]): Message text. At least one of 'content', 'embeds', or 'files' is required.
+        embeds (Optional[list]): List of embed objects (optional).
+        wait (Optional[bool]): Wait for server confirmation before returning (default: False).
+        thread_id (Optional[str]): ID of thread to post to (optional).
+
+    Returns:
+        dict: JSON response from Discord on success or error details.
     """
-    if not any(key in kwargs for key in ["content", "embeds", "files"]):
-        raise ValueError("You must provide at least one of 'content', 'embeds', or 'files'.")
+    if not content and not embeds:
+        raise ValueError("You must provide at least one of 'content' or 'embeds'.")
 
-    endpoint = f"/webhooks/{webhook_id}/{webhook_token}"
-    
+    url = f"{DISCORD_API_BASE}/webhooks/{webhook_id}/{webhook_token}"
+
     params = {}
-    if wait is not None:
-        params["wait"] = str(wait).lower()
-    if thread_id is not None:
+    if wait:
+        params["wait"] = "true"
+    if thread_id:
         params["thread_id"] = thread_id
-        
-    if params:
-        query_string = urllib.parse.urlencode(params)
-        endpoint += f"?{query_string}"
 
-    url = f"{DISCORD_API_BASE}{endpoint}"
-    payload = kwargs
-    
+    if params:
+        url += "?" + urllib.parse.urlencode(params)
+
+    payload = {}
+    if content:
+        payload["content"] = content
+    if embeds:
+        payload["embeds"] = embeds
+
     async with aiohttp.ClientSession() as session:
         async with session.post(url, json=payload) as resp:
             if resp.status in [200, 201]:
@@ -1622,55 +1644,58 @@ async def DISCORDBOT_EXECUTE_WEBHOOK(
             elif resp.status == 204:
                 return {"status": "success", "detail": "Webhook executed successfully."}
             else:
-                text = await resp.text()
-                raise Exception(f"Discord API Error {resp.status}: {text}")
+                return {"status": "error", "code": resp.status, "detail": await resp.text()}
+
+
 
 @mcp.tool()
 async def DISCORDBOT_EXECUTE_SLACK_COMPATIBLE_WEBHOOK(
     webhook_id: str,
     webhook_token: str,
-    wait: Optional[bool] = None,
-    thread_id: Optional[str] = None,
+    wait: bool = False,
+    thread_id: str = "",
     **kwargs
 ):
     """
     Executes a webhook with a Slack-compatible payload.
 
-    NOTE: This method uses the webhook's token for authentication. You must provide
-    a Slack-formatted payload (e.g., with 'text' or 'attachments') as keyword arguments.
+    NOTE: This method uses the webhook's token for authentication.
+    You must provide a Slack-formatted payload (e.g., with 'text' or
+    'attachments') as keyword arguments.
 
     Args:
         webhook_id (str): The ID of the webhook.
         webhook_token (str): The secret token of the webhook.
-        wait (Optional[bool]): If true, waits for server confirmation of message send.
-        thread_id (Optional[str]): Sends the message to a thread within the webhook's channel.
-        **kwargs: The Slack-compatible message payload (e.g., text="Hello", attachments=[...]).
+        wait (Optional[bool]): If true, waits for server confirmation of
+                              message send.
+        thread_id (Optional[str]): Sends the message to a thread within
+                                   the webhook's channel.
+        **kwargs: The Slack-compatible message payload (e.g., text="Hello",
+                  attachments=[...]).
     """
     if not kwargs:
         raise ValueError("You must provide a Slack-compatible payload (e.g., 'text').")
 
     endpoint = f"/webhooks/{webhook_id}/{webhook_token}/slack"
-    
     params = {}
-    if wait is not None:
-        params["wait"] = str(wait).lower()
-    if thread_id is not None:
-        params["thread_id"] = thread_id
-        
+
+    if wait:
+        params["wait"] = "true"
+    if thread_id.strip():
+        params["thread_id"] = thread_id.strip()
+
     if params:
-        query_string = urllib.parse.urlencode(params)
-        endpoint += f"?{query_string}"
+        endpoint += f"?{urllib.parse.urlencode(params)}"
 
     url = f"{DISCORD_API_BASE}{endpoint}"
     payload = kwargs
-    
+
     async with aiohttp.ClientSession() as session:
         async with session.post(url, json=payload) as resp:
-            # A successful execution returns a 200 OK with 'ok' or a 204 No Content
             if resp.status in [200, 204]:
                 try:
                     return await resp.json()
-                except aiohttp.ContentTypeError: # Handle empty response on 204
+                except aiohttp.ContentTypeError:
                     return {"status": "success", "detail": "Webhook executed successfully."}
             else:
                 text = await resp.text()
@@ -1680,43 +1705,44 @@ async def DISCORDBOT_EXECUTE_SLACK_COMPATIBLE_WEBHOOK(
 async def DISCORDBOT_EXECUTE_GITHUB_COMPATIBLE_WEBHOOK(
     webhook_id: str,
     webhook_token: str,
-    wait: Optional[bool] = None,
-    thread_id: Optional[str] = None,
+    wait: bool,
+    thread_id: str,
     **kwargs
 ):
     """
     Executes a webhook with a GitHub-compatible payload.
 
-    NOTE: This method uses the webhook's token for authentication. You must provide
-    a GitHub-formatted payload (e.g., with 'ref', 'commits', 'sender') as keyword arguments.
+    NOTE: This method uses the webhook's token for authentication.
+    You must provide a GitHub-formatted payload (e.g., with 'ref', 'commits', 'sender') as keyword arguments.
 
     Args:
         webhook_id (str): The ID of the webhook.
         webhook_token (str): The secret token of the webhook.
-        wait (Optional[bool]): If true, waits for server confirmation of message send.
-        thread_id (Optional[str]): Sends the message to a thread within the webhook's channel.
+        wait (bool): If true, waits for server confirmation of message send.
+        thread_id (str): Sends the message to a thread within the webhook's channel.
         **kwargs: The GitHub-compatible message payload.
     """
+    if not kwargs:
+        raise ValueError("You must provide a GitHub-compatible payload (e.g., 'ref', 'commits', 'sender').")
+
     endpoint = f"/webhooks/{webhook_id}/{webhook_token}/github"
-    
-    params = {}
-    if wait is not None:
-        params["wait"] = str(wait).lower()
-    if thread_id is not None:
-        params["thread_id"] = thread_id
-        
-    if params:
-        query_string = urllib.parse.urlencode(params)
-        endpoint += f"?{query_string}"
+
+    params = {
+        "wait": str(wait).lower(),
+        "thread_id": thread_id
+    }
+
+    # Build query string
+    query_string = urllib.parse.urlencode(params)
+    endpoint += f"?{query_string}"
 
     url = f"{DISCORD_API_BASE}{endpoint}"
     payload = kwargs
-    
+
     async with aiohttp.ClientSession() as session:
         async with session.post(url, json=payload) as resp:
             if resp.status in [200, 204]:
                 try:
-                    # Try to return JSON if wait=true, otherwise return success message
                     return await resp.json()
                 except aiohttp.ContentTypeError:
                     return {"status": "success", "detail": "Webhook executed successfully."}
@@ -1729,7 +1755,7 @@ async def DISCORDBOT_GET_WEBHOOK_MESSAGE(
     webhook_id: str,
     webhook_token: str,
     message_id: str,
-    thread_id: Optional[str] = None
+    thread_id: str
 ):
     """
     Retrieves a specific message previously sent by a webhook.
@@ -1767,7 +1793,7 @@ async def DISCORDBOT_UPDATE_WEBHOOK_MESSAGE(
     webhook_id: str,
     webhook_token: str,
     message_id: str,
-    thread_id: Optional[str] = None,
+    thread_id: str,
     **kwargs
 ):
     """
@@ -1850,7 +1876,7 @@ async def DISCORDBOT_DELETE_WEBHOOK_MESSAGE(
 async def DISCORDBOT_GET_ORIGINAL_WEBHOOK_MESSAGE(
     webhook_id: str,
     webhook_token: str,
-    thread_id: Optional[str] = None
+    thread_id: str
 ):
     """
     Retrieves the original message sent by a webhook after an interaction.

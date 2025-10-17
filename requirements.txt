@@ -1,0 +1,19 @@
+# Core MCP and Discord Bot Dependencies
+fastmcp>=0.1.0
+python-dotenv>=1.0.0
+
+# HTTP Client for Discord API
+httpx>=0.24.0
+
+# Standard Python libraries (usually included, but good to specify versions)
+typing-extensions>=4.0.0
+
+# Optional: For enhanced JSON handling and data validation
+pydantic>=2.0.0
+
+# Optional: For better async support
+asyncio-throttle>=1.0.0
+
+# Development and testing dependencies (optional)
+pytest>=7.0.0
+pytest-asyncio>=0.21.0

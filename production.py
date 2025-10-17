@@ -8,6 +8,37 @@ from dataclasses import dataclass
 from datetime import datetime, timedelta
 import httpx
 
+# Load .env file automatically from the same directory as this script
+try:
+    from dotenv import load_dotenv
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    env_path = os.path.join(script_dir, '.env')
+    if os.path.exists(env_path):
+        load_dotenv(env_path)
+        print(f"Loaded environment variables from: {env_path}")
+    else:
+        print(f"Warning: .env file not found at: {env_path}")
+except ImportError:
+    print("Warning: python-dotenv not installed. Install with: pip install python-dotenv")
+
+def get_env(var: str) -> str:
+    """Fetch environment variable or raise error if missing."""
+    value = os.getenv(var)
+    if not value:
+        # Try to load from .env file in script directory if not found
+        try:
+            from dotenv import load_dotenv
+            script_dir = os.path.dirname(os.path.abspath(__file__))
+            env_path = os.path.join(script_dir, '.env')
+            if os.path.exists(env_path):
+                load_dotenv(env_path, override=True)
+                value = os.getenv(var)
+        except ImportError:
+            pass
+        if not value:
+            raise RuntimeError(f"Missing required environment variable: {var}")
+    return value
+
 # FastMCP import compatibility
 try:
     from mcp.server.fastmcp import FastMCP  
@@ -52,9 +83,8 @@ config.DISCORD_API_BASE = os.getenv("DISCORD_API_BASE", config.DISCORD_API_BASE)
 config.REQUEST_TIMEOUT = float(os.getenv("REQUEST_TIMEOUT", config.REQUEST_TIMEOUT))
 
 # Bot token validation
-DISCORD_BOT_TOKEN = "MTQyNTEzMTI2MjkxNzQ4MDU5Nw.GZy3qk.iyJC4kdkA2ywNARsB8SY8sIB2IPFZ6Q2a6U0WI"
-if not DISCORD_BOT_TOKEN:
-    raise RuntimeError("DISCORD_BOT_TOKEN environment variable must be set. Include leading 'Bot ' if required.")
+# Get bot token from environment variable (required)
+DISCORD_BOT_TOKEN = get_env("DISCORD_BOT_TOKEN")
 
 if not DISCORD_BOT_TOKEN.startswith("Bot "):
     DISCORD_BOT_TOKEN = f"Bot {DISCORD_BOT_TOKEN}"
@@ -5243,4 +5273,5 @@ if __name__ == "__main__":
         pass
     except Exception as e:
         raise
+
 

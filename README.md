@@ -260,7 +260,3 @@ Feel free to contribute to this project by:
 ## License
 
 This project is open source and available under the MIT License.
-
-## Support
-
-For support or questions, please open an issue on the project repository or contact the maintainers.

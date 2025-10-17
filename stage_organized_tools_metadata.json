@@ -1,7 +1,7 @@
 {
   "discord_bot_tools": {
     "description": "A comprehensive collection of Discord bot tools for managing applications, channels, messages, guilds, users, emojis, stickers, webhooks, and more.",
-    "total_tools": 150,
+    "total_tools": 188,
     "categories": {
       "application_management": 20,
       "channel_management": 25,
@@ -11,7 +11,18 @@
       "user_member_management": 15,
       "emoji_sticker_management": 12,
       "webhook_management": 17,
-      "invite_management": 8
+      "invite_management": 8,
+      "voice_management": 2,
+      "dm_management": 2,
+      "widget_management": 4,
+      "template_management": 6,
+      "scheduled_events": 8,
+      "onboarding_management": 2,
+      "welcome_screen_management": 2,
+      "vanity_url_management": 2,
+      "integration_management": 2,
+      "prune_management": 2,
+      "voice_regions": 2
     },
     "tools": [
       {
@@ -1235,6 +1246,26 @@
           "guild_id": "string (Required) - ID of the guild",
           "enabled": "boolean (optional) - Whether the widget is enabled",
           "channel_id": "string (optional) - ID of the widget channel"
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_VOICE_REGIONS",
+        "description": "Returns an array of voice region objects that can be used when creating servers.",
+        "parameters": {}
+      },
+      {
+        "name": "DISCORDBOT_CREATE_DM",
+        "description": "Create a new DM channel with a user.",
+        "parameters": {
+          "recipient_id": "string (Required) - ID of the user to create DM with"
+        }
+      },
+      {
+        "name": "DISCORDBOT_CREATE_GROUP_DM_USER",
+        "description": "Create a new group DM channel with multiple users.",
+        "parameters": {
+          "access_tokens": "array (Required) - List of OAuth2 access tokens for users",
+          "nicks": "object (optional) - Dictionary of custom nicknames for users"
         }
       }
     ]

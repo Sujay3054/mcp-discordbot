@@ -5,6 +5,6 @@ description = "A Discord bot integrating MCP tools for automated moderation and 
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
-    "aiohttp>=3.13.0",
+    "https>=3.13.0",
     "mcp[cli]>=1.16.0",
 ]

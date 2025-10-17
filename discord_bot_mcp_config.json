@@ -1,0 +1,71 @@
+{
+  "mcpServers": {
+    "discord-bot": {
+      "command": "python",
+      "args": ["c:\\Users\\sujay\\Downloads\\stage_organized.py"],
+      "type": "stdio",
+      "env": {
+        "DISCORD_BOT_TOKEN": {
+          "source": "project",
+          "collection_method": "none",
+          "env_var": "DISCORD_BOT_TOKEN"
+        },
+        "DISCORD_API_BASE": {
+          "source": "project",
+          "collection_method": "none",
+          "env_var": "DISCORD_API_BASE"
+        },
+        "REQUEST_TIMEOUT": {
+          "source": "project",
+          "collection_method": "none",
+          "env_var": "REQUEST_TIMEOUT"
+        },
+        "MAX_RETRIES": {
+          "source": "project",
+          "collection_method": "none",
+          "env_var": "MAX_RETRIES"
+        },
+        "RETRY_DELAY": {
+          "source": "project",
+          "collection_method": "none",
+          "env_var": "RETRY_DELAY"
+        },
+        "CONNECTION_POOL_SIZE": {
+          "source": "project",
+          "collection_method": "none",
+          "env_var": "CONNECTION_POOL_SIZE"
+        },
+        "MAX_KEEPALIVE_CONNECTIONS": {
+          "source": "project",
+          "collection_method": "none",
+          "env_var": "MAX_KEEPALIVE_CONNECTIONS"
+        },
+        "RATE_LIMIT_WINDOW": {
+          "source": "project",
+          "collection_method": "none",
+          "env_var": "RATE_LIMIT_WINDOW"
+        },
+        "MAX_REQUESTS_PER_WINDOW": {
+          "source": "project",
+          "collection_method": "none",
+          "env_var": "MAX_REQUESTS_PER_WINDOW"
+        },
+        "HEALTH_CHECK_INTERVAL": {
+          "source": "project",
+          "collection_method": "none",
+          "env_var": "HEALTH_CHECK_INTERVAL"
+        },
+        "MAX_FILE_SIZE": {
+          "source": "project",
+          "collection_method": "none",
+          "env_var": "MAX_FILE_SIZE"
+        },
+        "ALLOWED_FILE_TYPES": {
+          "source": "project",
+          "collection_method": "none",
+          "env_var": "ALLOWED_FILE_TYPES"
+        }
+      }
+    }
+  }
+}

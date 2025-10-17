@@ -1,179 +1,266 @@
 # Discord Bot MCP Server
 
-This project provides a comprehensive set of tools to interact with the Discord API, wrapped in a Python server using the `FastMCP` framework. It allows you to manage guilds (servers), channels, messages, users, webhooks, and more through a standardized tool interface.
+This project provides a comprehensive set of tools to interact with the Discord API, wrapped in a Python server using the FastMCP framework. It allows you to manage guilds (servers), channels, messages, users, webhooks, and more through a standardized tool interface.
 
----
-## ## Features
+## Features
 
 This server exposes a wide range of Discord API functionalities, grouped into the following categories:
 
-* **Emoji & Sticker Management:** Create, retrieve, update, delete, and list custom emojis and stickers for a server.
-* **Utility & Channel Tools:** Follow announcement channels, trigger typing indicators, crosspost messages, and manage DMs.
-* **Guild (Server) Management:** A full suite of tools to create, delete, update, and retrieve information about servers, members, roles, bans, and invites.
-* **Webhook Management:** Create, retrieve, update, delete, and execute webhooks, including special compatibility modes for Slack and GitHub.
-* **Invite Management:** Create, resolve (get details), and revoke (delete) invite links for channels and servers.
+- **Application & Command Management**: Create, update, delete, and manage Discord slash commands and applications
+- **Channel & Thread Management**: Create, update, delete channels, manage threads, and handle permissions
+- **Message Management**: Send, edit, delete messages, manage reactions, and handle bulk operations
+- **Moderation & Automation**: Auto-moderation rules, user bans, and bulk operations
+- **Guild (Server) Management**: Complete server management including members, roles, bans, and invites
+- **User & Member Management**: User information, member updates, and role management
+- **Emoji & Sticker Management**: Create, retrieve, update, delete, and list custom emojis and stickers
+- **Webhook Management**: Full webhook lifecycle management with Slack/GitHub compatibility
+- **Invite & Template Management**: Create, resolve, and revoke invite links and guild templates
 
----
-## ## Getting Started
+## Getting Started
 
 Follow these steps to get your Discord Bot MCP server up and running.
 
-### ### Prerequisites
+### Prerequisites
 
-* Python 3.7+
-* A Discord Bot Application and its secret token. You can create one on the [Discord Developer Portal](https://discord.com/developers/applications).
+- Python 3.7+
+- A Discord Bot Application and its secret token. You can create one on the [Discord Developer Portal](https://discord.com/developers/applications)
 
-### ### Installation
+### Installation
 
-1.  Clone or download the repository containing your `production.py` file.
-2.  Install the required Python libraries:
-    ```bash
-    pip install "fastmcp[server]" aiohttp
-    ```
+1. Clone or download the repository containing your `stage_organized.py` file
+2. Install the required Python libraries:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-### ### Configuration
+### Configuration
 
 This script requires your Discord Bot's secret token to be set as an environment variable.
 
-* **On Windows (PowerShell):**
-    ```powershell
-    $env:DISCORDBOT_TOKEN = "Your_Secret_Bot_Token_Here"
-    ```
+Create a `.env` file in the same directory as `stage_organized.py`:
 
-* **On macOS / Linux (Bash/Zsh):**
-    ```bash
-    export DISCORDBOT_TOKEN="Your_Secret_Bot_Token_Here"
-    ```
+```bash
+# .env file
+DISCORD_BOT_TOKEN=your_bot_token_here
+DISCORD_API_BASE=https://discord.com/api/v10
+REQUEST_TIMEOUT=30.0
+```
 
----
-## ## Running the Server
+Or set environment variables directly:
+
+**On Windows (PowerShell):**
+```powershell
+$env:DISCORD_BOT_TOKEN = "Your_Secret_Bot_Token_Here"
+```
+
+**On macOS / Linux (Bash/Zsh):**
+```bash
+export DISCORD_BOT_TOKEN="Your_Secret_Bot_Token_Here"
+```
+
+## Running the Server
 
 Once the environment variable is set, run the script from your terminal:
 
 ```bash
-python production.py
+python stage_organized.py
 ```
 
 The server will start, and you can now connect to it with a tool like the MCP Inspector to call the available tools.
 
----
-## ## Available Tools
+## Available Tools
 
-Here is a complete list of the tools available on this server.
+Here is a complete list of the tools available on this server, organized by category.
 
-## Emoji & Sticker Management Tools
-
-| Tool Name | Description | Input | Output |
-|-----------|-------------|-------|--------|
-| `DISCORDBOT_CREATE_GUILD_EMOJI` | Creates a new emoji in a guild. | `guild_id`, `name`, `image`, optional `roles` | Created emoji object |
-| `DISCORDBOT_GET_GUILD_EMOJI` | Retrieves a specific emoji in a guild. | `guild_id`, `emoji_id` | Emoji object |
-| `DISCORDBOT_UPDATE_GUILD_EMOJI` | Updates an existing emoji. | `guild_id`, `emoji_id`, fields to update (`name`, `roles`) | Updated emoji object |
-| `DISCORDBOT_DELETE_GUILD_EMOJI` | Deletes an emoji from a guild. | `guild_id`, `emoji_id` | Success status |
-| `DISCORDBOT_LIST_GUILD_EMOJIS` | Lists all emojis in a guild. | `guild_id` | Array of emoji objects |
-| `DISCORDBOT_CREATE_GUILD_STICKER` | Creates a new sticker in a guild. | `guild_id`, `name`, `description`, `tags`, `file` | Created sticker object |
-| `DISCORDBOT_GET_GUILD_STICKER` | Retrieves a specific sticker. | `guild_id`, `sticker_id` | Sticker object |
-| `DISCORDBOT_UPDATE_GUILD_STICKER` | Updates a guild sticker. | `guild_id`, `sticker_id`, fields to update (`name`, `description`, `tags`) | Updated sticker object |
-| `DISCORDBOT_DELETE_GUILD_STICKER` | Deletes a sticker from a guild. | `guild_id`, `sticker_id` | Success status |
-| `DISCORDBOT_LIST_GUILD_STICKERS` | Lists all stickers in a guild. | `guild_id` | Array of sticker objects |
-| `DISCORDBOT_LIST_STICKER_PACKS` | Lists all official Discord sticker packs. | None | Array of sticker pack objects |
-| `DISCORDBOT_GET_STICKER` | Retrieves a specific sticker by ID. | `sticker_id` | Sticker object |
-
-
-## Discord Guild Tools
+### Application & Command Management Tools
 
 | Tool Name | Description | Input | Output |
 |-----------|-------------|-------|--------|
-| `DISCORDBOT_CREATE_GUILD` | Creates a new Discord guild. | `name`, `region`, optional settings like `icon`, `channels` | Success status and guild object |
-| `DISCORDBOT_DELETE_GUILD` | Deletes a guild. | `guild_id` | Success status |
-| `DISCORDBOT_UPDATE_GUILD` | Updates guild settings. | `guild_id`, settings to update | Updated guild object |
-| `DISCORDBOT_GET_GUILD` | Retrieves guild information. | `guild_id` | Guild object |
-| `DISCORDBOT_LIST_GUILD_CHANNELS` | Lists all channels in a guild. | `guild_id` | Array of channel objects |
-| `DISCORDBOT_LIST_GUILD_MEMBERS` | Lists all members of a guild. | `guild_id`, optional `limit` | Array of member objects |
-| `DISCORDBOT_GET_GUILD_MEMBER` | Retrieves a specific member in a guild. | `guild_id`, `user_id` | Member object |
-| `DISCORDBOT_UPDATE_GUILD_MEMBER` | Updates a guild member's info. | `guild_id`, `user_id`, updated fields | Updated member object |
-| `DISCORDBOT_DELETE_GUILD_MEMBER` | Removes a member from a guild. | `guild_id`, `user_id` | Success status |
-| `DISCORDBOT_BAN_USER_FROM_GUILD` | Bans a user from a guild. | `guild_id`, `user_id`, optional `reason`, `delete_message_days` | Success status |
-| `DISCORDBOT_UNBAN_USER_FROM_GUILD` | Removes a ban from a user. | `guild_id`, `user_id` | Success status |
-| `DISCORDBOT_LIST_GUILD_BANS` | Lists all banned users in a guild. | `guild_id` | Array of ban objects |
-| `DISCORDBOT_GET_GUILD_BAN` | Retrieves ban info for a user. | `guild_id`, `user_id` | Ban object |
-| `DISCORDBOT_PRUNE_GUILD` | Prunes inactive members from a guild. | `guild_id`, `days` | Number of members removed |
-| `DISCORDBOT_PREVIEW_PRUNE_GUILD` | Previews how many members would be pruned. | `guild_id`, `days` | Number of members that would be removed |
-| `DISCORDBOT_LIST_GUILD_ROLES` | Lists all roles in a guild. | `guild_id` | Array of role objects |
-| `DISCORDBOT_CREATE_GUILD_ROLE` | Creates a new role in a guild. | `guild_id`, role settings (`name`, `permissions`, etc.) | Created role object |
-| `DISCORDBOT_UPDATE_GUILD_ROLE` | Updates a role in a guild. | `guild_id`, `role_id`, fields to update | Updated role object |
-| `DISCORDBOT_DELETE_GUILD_ROLE` | Deletes a role from a guild. | `guild_id`, `role_id` | Success status |
-| `DISCORDBOT_SEARCH_GUILD_MEMBERS` | Searches members by username/nickname. | `guild_id`, `query`, optional `limit` | Array of matching member objects |
-| `DISCORDBOT_LEAVE_GUILD` | Makes the bot leave a guild. | `guild_id` | Success status |
-| `DISCORDBOT_LIST_GUILD_INVITES` | Lists all invites for a guild. | `guild_id` | Array of invite objects |
-| `DISCORDBOT_CREATE_GUILD_FROM_TEMPLATE` | Creates a guild from a template. | `template_code`, `name` | New guild object |
-| `DISCORDBOT_SYNC_GUILD_TEMPLATE` | Syncs a guild with its template. | `guild_id`, `template_code` | Updated template object |
-| `DISCORDBOT_GET_GUILD_TEMPLATE` | Retrieves a guild template. | `template_code` | Template object |
-| `DISCORDBOT_UPDATE_GUILD_TEMPLATE` | Updates a guild template. | `template_code`, fields to update | Updated template object |
-| `DISCORDBOT_DELETE_GUILD_TEMPLATE` | Deletes a guild template. | `template_code` | Success status |
-| `DISCORDBOT_CREATE_GUILD_TEMPLATE` | Creates a new template from a guild. | `guild_id`, `name`, `description` | Template object |
-| `DISCORDBOT_GET_GUILD_PREVIEW` | Retrieves a preview of a guild. | `guild_id` | Guild preview object |
-| `DISCORDBOT_GET_GUILDS_ONBOARDING` | Gets guild onboarding info. | `guild_id` | Onboarding object |
-| `DISCORDBOT_PUT_GUILDS_ONBOARDING` | Updates guild onboarding. | `guild_id`, updated fields | Updated onboarding object |
-| `DISCORDBOT_GET_GUILD_WIDGET` | Retrieves the guild widget. | `guild_id` | Widget object |
-| `DISCORDBOT_GET_GUILD_WIDGET_SETTINGS` | Retrieves guild widget settings. | `guild_id` | Widget settings object |
-| `DISCORDBOT_UPDATE_GUILD_WIDGET_SETTINGS` | Updates guild widget settings. | `guild_id`, updated fields | Updated widget settings |
-| `DISCORDBOT_GET_GUILD_WELCOME_SCREEN` | Gets the welcome screen of a guild. | `guild_id` | Welcome screen object |
-| `DISCORDBOT_UPDATE_GUILD_WELCOME_SCREEN` | Updates a guild's welcome screen. | `guild_id`, updated fields | Updated welcome screen |
-| `DISCORDBOT_GET_GUILD_VANITY_URL` | Gets the vanity URL for a guild. | `guild_id` | Vanity URL object |
-| `DISCORDBOT_GET_GUILD_WEBHOOKS` | Lists all webhooks in a guild. | `guild_id` | Array of webhook objects |
-| `DISCORDBOT_GET_GUILD_SCHEDULED_EVENT` | Retrieves a scheduled event. | `guild_id`, `event_id` | Event object |
-| `DISCORDBOT_CREATE_GUILD_SCHEDULED_EVENT` | Creates a scheduled event. | `guild_id`, event fields | Created event object |
-| `DISCORDBOT_UPDATE_GUILD_SCHEDULED_EVENT` | Updates a scheduled event. | `guild_id`, `event_id`, updated fields | Updated event object |
-| `DISCORDBOT_DELETE_GUILD_SCHEDULED_EVENT` | Deletes a scheduled event. | `guild_id`, `event_id` | Success status |
-| `DISCORDBOT_LIST_GUILD_SCHEDULED_EVENTS` | Lists all scheduled events. | `guild_id` | Array of event objects |
-| `DISCORDBOT_LIST_GUILD_SCHEDULED_EVENT_USERS` | Lists users for a scheduled event. | `guild_id`, `event_id` | Array of user objects |
-| `DISCORDBOT_LIST_GUILD_VOICE_REGIONS` | Lists voice regions in a guild. | `guild_id` | Array of voice region objects |
-| `DISCORDBOT_LIST_GUILD_INTEGRATIONS` | Lists integrations in a guild. | `guild_id` | Array of integration objects |
-| `DISCORDBOT_DELETE_GUILD_INTEGRATION` | Deletes a guild integration. | `guild_id`, `integration_id` | Success status |
+| `DISCORDBOT_CREATE_APPLICATION_COMMAND` | Creates a new global application command | `application_id`, `name`, `description`, `type`, `options` | Created command object |
+| `DISCORDBOT_DELETE_APPLICATION_COMMAND` | Deletes a global application command | `application_id`, `command_id` | Success status |
+| `DISCORDBOT_UPDATE_APPLICATION_COMMAND` | Updates a global application command | `application_id`, `command_id`, fields to update | Updated command object |
+| `DISCORDBOT_GET_APPLICATION_COMMAND` | Fetches a global application command | `application_id`, `command_id` | Command object |
+| `DISCORDBOT_LIST_APPLICATION_COMMANDS` | Fetches all global commands for an application | `application_id`, `with_localizations` | Array of command objects |
+| `DISCORDBOT_CREATE_GUILD_APPLICATION_COMMAND` | Creates a new guild application command | `application_id`, `guild_id`, `name`, `description` | Created command object |
+| `DISCORDBOT_DELETE_GUILD_APPLICATION_COMMAND` | Deletes a guild application command | `application_id`, `guild_id`, `command_id` | Success status |
+| `DISCORDBOT_UPDATE_GUILD_APPLICATION_COMMAND` | Updates a guild application command | `application_id`, `guild_id`, `command_id`, fields to update | Updated command object |
+| `DISCORDBOT_GET_GUILD_APPLICATION_COMMAND` | Fetches a guild application command | `application_id`, `guild_id`, `command_id` | Command object |
+| `DISCORDBOT_LIST_GUILD_APPLICATION_COMMANDS` | Fetches all guild commands for an application | `application_id`, `guild_id`, `with_localizations` | Array of command objects |
 
-## Webhook Management Tools
+### Channel & Thread Management Tools
 
 | Tool Name | Description | Input | Output |
 |-----------|-------------|-------|--------|
-| `DISCORDBOT_CREATE_WEBHOOK` | Creates a webhook in a channel. | `channel_id`, `name`, optional `avatar` | Created webhook object |
-| `DISCORDBOT_GET_WEBHOOK` | Retrieves a webhook by ID. | `webhook_id` | Webhook object |
-| `DISCORDBOT_UPDATE_WEBHOOK` | Updates a webhook by ID. | `webhook_id`, fields to update (`name`, `avatar`) | Updated webhook object |
-| `DISCORDBOT_DELETE_WEBHOOK` | Deletes a webhook by ID. | `webhook_id` | Success status |
-| `DISCORDBOT_GET_WEBHOOK_BY_TOKEN` | Retrieves a webhook using its token. | `webhook_id`, `webhook_token` | Webhook object |
-| `DISCORDBOT_UPDATE_WEBHOOK_BY_TOKEN` | Updates a webhook using its token. | `webhook_id`, `webhook_token`, fields to update | Updated webhook object |
-| `DISCORDBOT_DELETE_WEBHOOK_BY_TOKEN` | Deletes a webhook using its token. | `webhook_id`, `webhook_token` | Success status |
-| `DISCORDBOT_EXECUTE_WEBHOOK` | Sends a message using a webhook. | `webhook_id`, `webhook_token`, `content`/`embeds`/`files`, optional `thread_id`, `wait` | Message object or success status |
-| `DISCORDBOT_EXECUTE_SLACK_COMPATIBLE_WEBHOOK` | Sends a Slack-compatible message via webhook. | `webhook_id`, `webhook_token`, Slack payload | Message object or success status |
-| `DISCORDBOT_EXECUTE_GITHUB_COMPATIBLE_WEBHOOK` | Sends a GitHub-compatible message via webhook. | `webhook_id`, `webhook_token`, GitHub payload | Message object or success status |
-| `DISCORDBOT_GET_WEBHOOK_MESSAGE` | Retrieves a message sent by a webhook. | `webhook_id`, `webhook_token`, `message_id`, optional `thread_id` | Message object |
-| `DISCORDBOT_UPDATE_WEBHOOK_MESSAGE` | Updates a message sent by a webhook. | `webhook_id`, `webhook_token`, `message_id`, new content/embeds | Updated message object |
-| `DISCORDBOT_DELETE_WEBHOOK_MESSAGE` | Deletes a webhook message. | `webhook_id`, `webhook_token`, `message_id` | Success status |
-| `DISCORDBOT_GET_ORIGINAL_WEBHOOK_MESSAGE` | Retrieves the original interaction message sent by a webhook. | `webhook_id`, `webhook_token`, optional `thread_id` | Original message object |
-| `DISCORDBOT_UPDATE_ORIGINAL_WEBHOOK_MESSAGE` | Updates the original interaction message. | `webhook_id`, `webhook_token`, new content/embeds | Updated message object |
-| `DISCORDBOT_DELETE_ORIGINAL_WEBHOOK_MESSAGE` | Deletes the original interaction message. | `webhook_id`, `webhook_token` | Success status |
-| `DISCORDBOT_LIST_CHANNEL_WEBHOOKS` | Lists all webhooks in a channel. | `channel_id` | Array of webhook objects |
-| `DISCORDBOT_GET_GUILD_WEBHOOKS` | Lists all webhooks in a guild. | `guild_id` | Array of webhook objects |
+| `DISCORDBOT_GET_CHANNEL` | Gets a channel by ID | `channel_id` | Channel object |
+| `DISCORDBOT_CREATE_GUILD_CHANNEL` | Creates a new channel in a guild | `guild_id`, `name`, `type`, optional settings | Created channel object |
+| `DISCORDBOT_UPDATE_CHANNEL` | Updates a channel's settings | `channel_id`, fields to update | Updated channel object |
+| `DISCORDBOT_DELETE_CHANNEL` | Deletes a channel | `channel_id` | Success status |
+| `DISCORDBOT_LIST_GUILD_CHANNELS` | Lists all channels in a guild | `guild_id` | Array of channel objects |
+| `DISCORDBOT_CREATE_CHANNEL_INVITE` | Creates a new invite for a channel | `channel_id`, invite settings | Created invite object |
+| `DISCORDBOT_LIST_CHANNEL_INVITES` | Lists all invites for a channel | `channel_id` | Array of invite objects |
+| `DISCORDBOT_SET_CHANNEL_PERMISSION_OVERWRITE` | Edits channel permission overwrites | `channel_id`, `overwrite_id`, `allow`, `deny`, `type` | Success status |
+| `DISCORDBOT_DELETE_CHANNEL_PERMISSION_OVERWRITE` | Deletes a channel permission overwrite | `channel_id`, `overwrite_id` | Success status |
+| `DISCORDBOT_CREATE_THREAD` | Creates a new thread from an existing channel | `channel_id`, `name`, `type`, settings | Created thread object |
+| `DISCORDBOT_CREATE_THREAD_FROM_MESSAGE` | Creates a new thread from an existing message | `channel_id`, `message_id`, `name`, settings | Created thread object |
+| `DISCORDBOT_JOIN_THREAD` | Adds the current user to a thread | `channel_id` | Success status |
+| `DISCORDBOT_LEAVE_THREAD` | Removes the current user from a thread | `channel_id` | Success status |
+| `DISCORDBOT_GET_THREAD_MEMBER` | Returns a thread member object | `channel_id`, `user_id` | Thread member object |
+| `DISCORDBOT_DELETE_THREAD_MEMBER` | Removes another member from a thread | `channel_id`, `user_id` | Success status |
+| `DISCORDBOT_LIST_THREAD_MEMBERS` | Returns array of thread members | `channel_id`, optional filters | Array of thread member objects |
 
-## Invites & Templates Tools
+### Message Management Tools
 
 | Tool Name | Description | Input | Output |
 |-----------|-------------|-------|--------|
-| `DISCORDBOT_INVITE_RESOLVE` | Resolves an invite code to retrieve invite information. | `invite_code` | Invite object |
-| `DISCORDBOT_INVITE_REVOKE` | Revokes an existing invite. | `invite_code` | Success status |
-| `DISCORDBOT_CREATE_GUILD_TEMPLATE` | Creates a new guild template. | `guild_id`, `name`, `description` | Template object |
-| `DISCORDBOT_GET_GUILD_TEMPLATE` | Retrieves a specific guild template by code. | `template_code` | Template object |
-| `DISCORDBOT_UPDATE_GUILD_TEMPLATE` | Updates an existing guild template. | `template_code`, fields to update (`name`, `description`) | Updated template object |
-| `DISCORDBOT_SYNC_GUILD_TEMPLATE` | Syncs a guild with its template. | `guild_id`, `template_code` | Updated template object |
-| `DISCORDBOT_DELETE_GUILD_TEMPLATE` | Deletes a guild template. | `template_code` | Success status |
-| `DISCORDBOT_LIST_GUILD_TEMPLATES` | Lists all templates of a guild. | `guild_id` | Array of template objects |
+| `DISCORDBOT_CREATE_MESSAGE` | Sends a message to a Discord channel | `channel_id`, `content`, `embeds`, `files`, `components` | Created message object |
+| `DISCORDBOT_GET_MESSAGE` | Returns a specific message in the channel | `channel_id`, `message_id` | Message object |
+| `DISCORDBOT_UPDATE_MESSAGE` | Updates a message | `channel_id`, `message_id`, new content | Updated message object |
+| `DISCORDBOT_DELETE_MESSAGE` | Deletes a message | `channel_id`, `message_id` | Success status |
+| `DISCORDBOT_LIST_MESSAGES` | Returns the messages for a channel | `channel_id`, optional filters | Array of message objects |
+| `DISCORDBOT_PIN_MESSAGE` | Pins a message in a channel | `channel_id`, `message_id` | Success status |
+| `DISCORDBOT_UNPIN_MESSAGE` | Unpins a message in a channel | `channel_id`, `message_id` | Success status |
+| `DISCORDBOT_LIST_PINNED_MESSAGES` | Returns all pinned messages in the channel | `channel_id` | Array of message objects |
+| `DISCORDBOT_ADD_MY_MESSAGE_REACTION` | Creates a reaction for the message | `channel_id`, `message_id`, `emoji` | Success status |
+| `DISCORDBOT_DELETE_MY_MESSAGE_REACTION` | Deletes a reaction the current user has made | `channel_id`, `message_id`, `emoji` | Success status |
+| `DISCORDBOT_DELETE_USER_MESSAGE_REACTION` | Deletes another user's reaction | `channel_id`, `message_id`, `emoji`, `user_id` | Success status |
+| `DISCORDBOT_DELETE_ALL_MESSAGE_REACTIONS` | Deletes all reactions on a message | `channel_id`, `message_id` | Success status |
+| `DISCORDBOT_DELETE_ALL_MESSAGE_REACTIONS_BY_EMOJI` | Deletes all reactions for the given emoji | `channel_id`, `message_id`, `emoji` | Success status |
+| `DISCORDBOT_LIST_MESSAGE_REACTIONS_BY_EMOJI` | Gets a list of users that reacted with this emoji | `channel_id`, `message_id`, `emoji`, optional filters | Array of user objects |
+| `DISCORDBOT_BULK_DELETE_MESSAGES` | Deletes multiple messages in a single request | `channel_id`, `messages` (array) | Success status |
+| `DISCORDBOT_CROSSPOST_MESSAGE` | Crossposts a message in a News Channel | `channel_id`, `message_id` | Crossposted message object |
 
-## Miscellaneous / Utility Tools
+### Guild (Server) Management Tools
 
 | Tool Name | Description | Input | Output |
 |-----------|-------------|-------|--------|
-| `DISCORDBOT_FOLLOW_CHANNEL` | Follows a news channel to receive updates in another channel. | `channel_id`, `webhook_channel_id` | Success status |
-| `DISCORDBOT_TRIGGER_TYPING_INDICATOR` | Triggers the typing indicator in a channel. | `channel_id` | Success status |
-| `DISCORDBOT_CROSSPOST_MESSAGE` | Crossposts a message from a news channel to followers. | `channel_id`, `message_id` | Crossposted message object |
-| `DISCORDBOT_LIST_VOICE_REGIONS` | Lists available voice regions for a guild. | `guild_id` | Array of voice region objects |
-| `DISCORDBOT_CREATE_DM` | Creates a direct message channel with a user. | `recipient_id` | DM channel object |
-| `DISCORDBOT_CREATE_GROUP_DM_USER` | Creates a group DM with multiple users. | `access_tokens` (list of user tokens), optional `nicks` | Group DM channel object |
+| `DISCORDBOT_CREATE_GUILD` | Creates a new guild | `name`, optional settings | Created guild object |
+| `DISCORDBOT_DELETE_GUILD` | Deletes a guild permanently | `guild_id` | Success status |
+| `DISCORDBOT_UPDATE_GUILD` | Updates guild settings | `guild_id`, fields to update | Updated guild object |
+| `DISCORDBOT_GET_GUILD` | Returns the guild object for the given id | `guild_id`, `with_counts` | Guild object |
+| `DISCORDBOT_LIST_GUILD_MEMBERS` | Returns a list of guild member objects | `guild_id`, optional filters | Array of member objects |
+| `DISCORDBOT_UPDATE_GUILD_MEMBER` | Modifies attributes of a guild member | `guild_id`, `user_id`, fields to update | Updated member object |
+| `DISCORDBOT_BAN_USER_FROM_GUILD` | Bans a user from a guild | `guild_id`, `user_id`, optional settings | Success status |
+| `DISCORDBOT_UNBAN_USER_FROM_GUILD` | Removes the ban for a user | `guild_id`, `user_id` | Success status |
+| `DISCORDBOT_LIST_GUILD_BANS` | Returns a list of ban objects | `guild_id`, optional filters | Array of ban objects |
+| `DISCORDBOT_GET_GUILD_BAN` | Returns a ban object for the given user | `guild_id`, `user_id` | Ban object |
+| `DISCORDBOT_PRUNE_GUILD` | Begins a prune operation | `guild_id`, `days`, optional settings | Prune count |
+| `DISCORDBOT_PREVIEW_PRUNE_GUILD` | Returns an object with prune count | `guild_id`, `days`, optional settings | Prune count object |
+| `DISCORDBOT_LIST_GUILD_ROLES` | Returns a list of role objects | `guild_id` | Array of role objects |
+| `DISCORDBOT_CREATE_GUILD_ROLE` | Creates a new role for the guild | `guild_id`, role settings | Created role object |
+| `DISCORDBOT_UPDATE_GUILD_ROLE` | Modifies a guild role | `guild_id`, `role_id`, fields to update | Updated role object |
+| `DISCORDBOT_DELETE_GUILD_ROLE` | Deletes a guild role | `guild_id`, `role_id` | Success status |
+| `DISCORDBOT_LEAVE_GUILD` | Leaves a guild | `guild_id` | Success status |
+| `DISCORDBOT_LIST_GUILD_INVITES` | Returns a list of invite objects | `guild_id` | Array of invite objects |
+
+### Emoji & Sticker Management Tools
+
+| Tool Name | Description | Input | Output |
+|-----------|-------------|-------|--------|
+| `DISCORDBOT_CREATE_GUILD_EMOJI` | Creates a new emoji for the guild | `guild_id`, `name`, `image`, optional `roles` | Created emoji object |
+| `DISCORDBOT_GET_GUILD_EMOJI` | Returns an emoji object for the given IDs | `guild_id`, `emoji_id` | Emoji object |
+| `DISCORDBOT_UPDATE_GUILD_EMOJI` | Modifies the given emoji | `guild_id`, `emoji_id`, fields to update | Updated emoji object |
+| `DISCORDBOT_DELETE_GUILD_EMOJI` | Deletes the given emoji | `guild_id`, `emoji_id` | Success status |
+| `DISCORDBOT_LIST_GUILD_EMOJIS` | Returns a list of emoji objects | `guild_id` | Array of emoji objects |
+| `DISCORDBOT_CREATE_GUILD_STICKER` | Creates a new sticker for the guild | `guild_id`, `name`, `description`, `tags`, `file` | Created sticker object |
+| `DISCORDBOT_GET_GUILD_STICKER` | Returns a sticker object for the given IDs | `guild_id`, `sticker_id` | Sticker object |
+| `DISCORDBOT_UPDATE_GUILD_STICKER` | Modifies the given sticker | `guild_id`, `sticker_id`, fields to update | Updated sticker object |
+| `DISCORDBOT_DELETE_GUILD_STICKER` | Deletes the given sticker | `guild_id`, `sticker_id` | Success status |
+| `DISCORDBOT_LIST_GUILD_STICKERS` | Returns a list of sticker objects | `guild_id` | Array of sticker objects |
+| `DISCORDBOT_LIST_STICKER_PACKS` | Returns the list of sticker packs | None | Array of sticker pack objects |
+| `DISCORDBOT_GET_STICKER` | Returns a sticker object for the given ID | `sticker_id` | Sticker object |
+
+### Webhook Management Tools
+
+| Tool Name | Description | Input | Output |
+|-----------|-------------|-------|--------|
+| `DISCORDBOT_CREATE_WEBHOOK` | Creates a webhook in a channel | `channel_id`, `name`, optional `avatar` | Created webhook object |
+| `DISCORDBOT_GET_WEBHOOK` | Returns the webhook object for the given id | `webhook_id` | Webhook object |
+| `DISCORDBOT_UPDATE_WEBHOOK` | Modifies a webhook | `webhook_id`, fields to update | Updated webhook object |
+| `DISCORDBOT_DELETE_WEBHOOK` | Deletes a webhook permanently | `webhook_id` | Success status |
+| `DISCORDBOT_GET_WEBHOOK_BY_TOKEN` | Returns the webhook object using its token | `webhook_id`, `webhook_token` | Webhook object |
+| `DISCORDBOT_UPDATE_WEBHOOK_BY_TOKEN` | Modifies a webhook using its token | `webhook_id`, `webhook_token`, fields to update | Updated webhook object |
+| `DISCORDBOT_DELETE_WEBHOOK_BY_TOKEN` | Deletes a webhook using its token | `webhook_id`, `webhook_token` | Success status |
+| `DISCORDBOT_EXECUTE_WEBHOOK` | Executes a webhook | `webhook_id`, `webhook_token`, message content | Message object or success status |
+| `DISCORDBOT_EXECUTE_SLACK_COMPATIBLE_WEBHOOK` | Executes a webhook in Slack-compatible mode | `webhook_id`, `webhook_token`, Slack payload | Message object or success status |
+| `DISCORDBOT_EXECUTE_GITHUB_COMPATIBLE_WEBHOOK` | Executes a webhook in GitHub-compatible mode | `webhook_id`, `webhook_token`, GitHub payload | Message object or success status |
+| `DISCORDBOT_GET_WEBHOOK_MESSAGE` | Returns a previously-sent webhook message | `webhook_id`, `webhook_token`, `message_id` | Message object |
+| `DISCORDBOT_UPDATE_WEBHOOK_MESSAGE` | Edits a previously-sent webhook message | `webhook_id`, `webhook_token`, `message_id`, new content | Updated message object |
+| `DISCORDBOT_DELETE_WEBHOOK_MESSAGE` | Deletes a message that was created by the webhook | `webhook_id`, `webhook_token`, `message_id` | Success status |
+| `DISCORDBOT_GET_ORIGINAL_WEBHOOK_MESSAGE` | Returns the original interaction message | `webhook_id`, `webhook_token` | Original message object |
+| `DISCORDBOT_UPDATE_ORIGINAL_WEBHOOK_MESSAGE` | Edits the original interaction message | `webhook_id`, `webhook_token`, new content | Updated message object |
+| `DISCORDBOT_DELETE_ORIGINAL_WEBHOOK_MESSAGE` | Deletes the original interaction message | `webhook_id`, `webhook_token` | Success status |
+| `DISCORDBOT_LIST_CHANNEL_WEBHOOKS` | Returns a list of channel webhook objects | `channel_id` | Array of webhook objects |
+| `DISCORDBOT_GET_GUILD_WEBHOOKS` | Returns a list of guild webhook objects | `guild_id` | Array of webhook objects |
+
+### Invite & Template Management Tools
+
+| Tool Name | Description | Input | Output |
+|-----------|-------------|-------|--------|
+| `DISCORDBOT_INVITE_RESOLVE` | Returns an invite object for the given code | `invite_code`, optional filters | Invite object |
+| `DISCORDBOT_INVITE_REVOKE` | Deletes an invite | `invite_code` | Success status |
+| `DISCORDBOT_CREATE_GUILD_FROM_TEMPLATE` | Creates a new guild based on a template | `template_code`, `name`, optional `icon` | New guild object |
+| `DISCORDBOT_GET_GUILD_TEMPLATE` | Returns a guild template object | `template_code` | Template object |
+| `DISCORDBOT_UPDATE_GUILD_TEMPLATE` | Modifies the template's metadata | `template_code`, fields to update | Updated template object |
+| `DISCORDBOT_SYNC_GUILD_TEMPLATE` | Syncs the template to the guild's current state | `guild_id`, `template_code` | Updated template object |
+| `DISCORDBOT_DELETE_GUILD_TEMPLATE` | Deletes the template | `template_code` | Success status |
+| `DISCORDBOT_LIST_GUILD_TEMPLATES` | Returns an array of guild template objects | `guild_id` | Array of template objects |
+| `DISCORDBOT_CREATE_GUILD_TEMPLATE` | Creates a template for the guild | `guild_id`, `name`, optional `description` | Template object |
+
+### Miscellaneous / Utility Tools
+
+| Tool Name | Description | Input | Output |
+|-----------|-------------|-------|--------|
+| `DISCORDBOT_FOLLOW_CHANNEL` | Follows a News Channel to send messages to a target channel | `channel_id`, `webhook_channel_id` | Success status |
+| `DISCORDBOT_TRIGGER_TYPING_INDICATOR` | Posts a typing indicator for the specified channel | `channel_id` | Success status |
+| `DISCORDBOT_CROSSPOST_MESSAGE` | Crossposts a message in a News Channel | `channel_id`, `message_id` | Crossposted message object |
+| `DISCORDBOT_LIST_VOICE_REGIONS` | Returns an array of voice region objects | None | Array of voice region objects |
+| `DISCORDBOT_CREATE_DM` | Creates a new DM channel with a user | `recipient_id` | DM channel object |
+| `DISCORDBOT_CREATE_GROUP_DM_USER` | Creates a new group DM channel with multiple users | `access_tokens`, optional `nicks` | Group DM channel object |
+| `DISCORDBOT_GET_GATEWAY` | Gets the gateway URL and recommended number of shards | None | Gateway object |
+| `DISCORDBOT_GET_BOT_GATEWAY` | Gets the gateway URL and recommended number of shards for the bot | None | Bot gateway object |
+| `DISCORDBOT_GET_PUBLIC_KEYS` | Gets public keys for verifying interaction payloads | None | Public keys object |
+
+## Configuration Options
+
+The server supports various configuration options through environment variables:
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `DISCORD_BOT_TOKEN` | Your Discord bot token (required) | None |
+| `DISCORD_API_BASE` | Discord API base URL | `https://discord.com/api/v10` |
+| `REQUEST_TIMEOUT` | HTTP request timeout in seconds | `30.0` |
+
+## Production Features
+
+This server includes production-ready features:
+
+- **Connection Pooling**: Efficient HTTP client with connection pooling
+- **Rate Limiting**: Built-in rate limiting with exponential backoff
+- **Retry Logic**: Automatic retry for failed requests
+- **Error Handling**: Comprehensive error handling with detailed messages
+- **File Upload Support**: Support for file uploads up to 25MB
+- **Health Monitoring**: Built-in health check capabilities
+
+## Security
+
+- Bot tokens are loaded from environment variables (never hardcoded)
+- Automatic `.env` file loading for easy configuration
+- Secure HTTP client with proper timeout handling
+- Input validation for all parameters
+
+## Contributing
+
+Feel free to contribute to this project by:
+
+1. Adding new Discord API endpoints
+2. Improving error handling
+3. Adding more comprehensive documentation
+4. Enhancing the production features
+
+## License
+
+This project is open source and available under the MIT License.
+
+## Support
+
+For support or questions, please open an issue on the project repository or contact the maintainers.

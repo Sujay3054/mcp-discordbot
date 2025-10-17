@@ -25,6 +25,88 @@ Follow these steps to get your Discord Bot MCP server up and running.
 - Python 3.7+
 - A Discord Bot Application and its secret token. You can create one on the [Discord Developer Portal](https://discord.com/developers/applications)
 
+### Getting Your Discord Bot Token
+
+Follow these steps to create a Discord bot and obtain its token:
+
+#### Step 1: Create a Discord Application
+
+1. Go to the [Discord Developer Portal](https://discord.com/developers/applications)
+2. Click **"New Application"**
+3. Enter a name for your application (this will be your bot's name)
+4. Click **"Create"**
+
+#### Step 2: Create a Bot
+
+1. In your application dashboard, navigate to the **"Bot"** section in the left sidebar
+2. Click **"Add Bot"** and confirm when prompted
+3. Your bot is now created! You'll see a section with your bot's information
+
+#### Step 3: Get Your Bot Token
+
+1. In the **"Bot"** section, find the **"Token"** field
+2. Click **"Copy"** to copy your bot token
+3. **⚠️ IMPORTANT**: Keep this token secret! Never share it publicly or commit it to version control
+
+#### Step 4: Set Bot Permissions
+
+1. In the **"Bot"** section, scroll down to **"Privileged Gateway Intents"**
+2. Enable the intents you need:
+   - **Server Members Intent**: Required for `LIST_GUILD_MEMBERS`, `SEARCH_GUILD_MEMBERS`
+   - **Message Content Intent**: Required for reading message content
+   - **Presence Intent**: Required for presence information
+
+#### Step 5: Generate Invite URL
+
+1. Navigate to the **"OAuth2"** > **"URL Generator"** section
+2. Under **"Scopes"**, select:
+   - **`bot`**: Allows your application to join servers as a bot
+   - **`applications.commands`**: Allows your bot to create slash commands
+3. Under **"Bot Permissions"**, select the permissions your bot needs:
+   - **Administrator**: Full access (use with caution)
+   - Or select specific permissions like:
+     - **Send Messages**
+     - **Manage Messages**
+     - **Manage Roles**
+     - **Manage Channels**
+     - **Kick Members**
+     - **Ban Members**
+     - **Manage Webhooks**
+     - **Manage Emojis and Stickers**
+4. Copy the generated URL and open it in your browser
+5. Select a server and authorize the bot
+
+#### Step 6: Configure Your Bot
+
+1. Create a `.env` file in your project directory:
+   ```bash
+   DISCORD_BOT_TOKEN=your_bot_token_here
+   DISCORD_API_BASE=https://discord.com/api/v10
+   REQUEST_TIMEOUT=30.0
+   ```
+2. Replace `your_bot_token_here` with the token you copied in Step 3
+
+#### Security Best Practices
+
+- ✅ **DO**: Store your token in environment variables
+- ✅ **DO**: Use a `.env` file (make sure it's in your `.gitignore`)
+- ✅ **DO**: Keep your token private and secure
+- ❌ **DON'T**: Hardcode tokens in your source code
+- ❌ **DON'T**: Share your token publicly
+- ❌ **DON'T**: Commit tokens to version control
+
+#### Troubleshooting
+
+**Token not working?**
+- Make sure you copied the entire token without extra spaces
+- Verify the bot is properly invited to your server
+- Check that the bot has the necessary permissions
+
+**Bot not responding?**
+- Ensure the bot is online in your server
+- Check that the bot has the required intents enabled
+- Verify the bot has the necessary permissions for the actions you're trying to perform
+
 ### Installation
 
 1. Clone or download the repository containing your `stage_organized.py` file

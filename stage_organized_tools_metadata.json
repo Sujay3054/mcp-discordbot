@@ -1,0 +1,1242 @@
+{
+  "discord_bot_tools": {
+    "description": "A comprehensive collection of Discord bot tools for managing applications, channels, messages, guilds, users, emojis, stickers, webhooks, and more.",
+    "total_tools": 150,
+    "categories": {
+      "application_management": 20,
+      "channel_management": 25,
+      "message_management": 15,
+      "moderation_automation": 8,
+      "guild_management": 30,
+      "user_member_management": 15,
+      "emoji_sticker_management": 12,
+      "webhook_management": 17,
+      "invite_management": 8
+    },
+    "tools": [
+      {
+        "name": "DISCORDBOT_CREATE_APPLICATION_COMMAND",
+        "description": "Create a new global application command.",
+        "parameters": {
+          "application_id": "string (Required) - ID of the application",
+          "name": "string (Required) - Name of the command (1-32 chars, lowercase, letters/numbers/underscores only)",
+          "description": "string (Required) - Description of the command",
+          "type": "number (optional) - Type of command (default: 1 = CHAT_INPUT, 2 = USER, 3 = MESSAGE)",
+          "options": "string (optional) - JSON string of command options",
+          "default_member_permissions": "string (optional) - JSON string of default member permissions",
+          "dm_permission": "boolean (optional) - Whether command can be used in DMs (default: true)",
+          "nsfw": "boolean (optional) - Whether command is NSFW (default: false)"
+        }
+      },
+      {
+        "name": "DISCORDBOT_DELETE_APPLICATION_COMMAND",
+        "description": "Delete a global application command.",
+        "parameters": {
+          "application_id": "string (Required) - ID of the application",
+          "command_id": "string (Required) - ID of the command to delete"
+        }
+      },
+      {
+        "name": "DISCORDBOT_UPDATE_APPLICATION_COMMAND",
+        "description": "Update a global application command.",
+        "parameters": {
+          "application_id": "string (Required) - ID of the application",
+          "command_id": "string (Required) - ID of the command to update",
+          "name": "string (optional) - New name for the command",
+          "description": "string (optional) - New description for the command",
+          "type": "number (optional) - New type of command (default: 1)",
+          "options": "string (optional) - JSON string of command options",
+          "default_member_permissions": "string (optional) - JSON string of default member permissions",
+          "dm_permission": "boolean (optional) - Whether command can be used in DMs (default: true)",
+          "nsfw": "boolean (optional) - Whether command is NSFW (default: false)"
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_APPLICATION_COMMAND",
+        "description": "Fetch a global application command.",
+        "parameters": {
+          "application_id": "string (Required) - ID of the application",
+          "command_id": "string (Required) - ID of the command to fetch"
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_APPLICATION_COMMANDS",
+        "description": "Fetch all global commands for an application.",
+        "parameters": {
+          "application_id": "string (Required) - ID of the application",
+          "with_localizations": "boolean (optional) - Whether to include localization data (default: false)"
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_APPLICATION_COMMAND_PERMISSIONS",
+        "description": "Get permissions for a specific global command.",
+        "parameters": {
+          "application_id": "string (Required) - ID of the application",
+          "command_id": "string (Required) - ID of the command"
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_APPLICATION_COMMAND_PERMISSIONS",
+        "description": "Get all permissions for all global commands.",
+        "parameters": {
+          "application_id": "string (Required) - ID of the application"
+        }
+      },
+      {
+        "name": "DISCORDBOT_CREATE_GUILD_APPLICATION_COMMAND",
+        "description": "Create a new guild application command.",
+        "parameters": {
+          "application_id": "string (Required) - ID of the application",
+          "guild_id": "string (Required) - ID of the guild where the command will be created",
+          "name": "string (Required) - Name of the command (1-32 chars, lowercase, letters/numbers/underscores only)",
+          "description": "string (Required) - Description of the command",
+          "type": "number (optional) - Type of command (default: 1 = CHAT_INPUT)",
+          "options": "string (optional) - JSON string of command options",
+          "default_member_permissions": "string (optional) - JSON string of default member permissions",
+          "dm_permission": "boolean (optional) - Whether command can be used in DMs (default: true)",
+          "nsfw": "boolean (optional) - Whether command is NSFW (default: false)"
+        }
+      },
+      {
+        "name": "DISCORDBOT_DELETE_GUILD_APPLICATION_COMMAND",
+        "description": "Delete a guild application command.",
+        "parameters": {
+          "application_id": "string (Required) - ID of the application",
+          "guild_id": "string (Required) - ID of the guild where the command is located",
+          "command_id": "string (Required) - ID of the command to delete"
+        }
+      },
+      {
+        "name": "DISCORDBOT_UPDATE_GUILD_APPLICATION_COMMAND",
+        "description": "Update a guild application command.",
+        "parameters": {
+          "application_id": "string (Required) - ID of the application",
+          "guild_id": "string (Required) - ID of the guild where the command is located",
+          "command_id": "string (Required) - ID of the command to update",
+          "name": "string (optional) - New name for the command",
+          "description": "string (optional) - New description for the command",
+          "type": "number (optional) - New type of command (default: 1)",
+          "options": "string (optional) - JSON string of command options",
+          "default_member_permissions": "string (optional) - JSON string of default member permissions",
+          "dm_permission": "boolean (optional) - Whether command can be used in DMs (default: true)",
+          "nsfw": "boolean (optional) - Whether command is NSFW (default: false)"
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_GUILD_APPLICATION_COMMAND",
+        "description": "Fetch a guild application command.",
+        "parameters": {
+          "application_id": "string (Required) - ID of the application",
+          "guild_id": "string (Required) - ID of the guild",
+          "command_id": "string (Required) - ID of the command to fetch"
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_GUILD_APPLICATION_COMMANDS",
+        "description": "Fetch all guild commands for an application.",
+        "parameters": {
+          "application_id": "string (Required) - ID of the application",
+          "guild_id": "string (Required) - ID of the guild",
+          "with_localizations": "boolean (optional) - Whether to include localization data (default: false)"
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_GUILD_APPLICATION_COMMAND_PERMISSIONS",
+        "description": "Get permissions for a specific command in a guild.",
+        "parameters": {
+          "application_id": "string (Required) - ID of the application",
+          "guild_id": "string (Required) - ID of the guild",
+          "command_id": "string (Required) - ID of the command"
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_GUILD_APPLICATION_COMMAND_PERMISSIONS",
+        "description": "Get all permissions for all commands in a guild.",
+        "parameters": {
+          "application_id": "string (Required) - ID of the application",
+          "guild_id": "string (Required) - ID of the guild"
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_APPLICATION",
+        "description": "Get information about an application.",
+        "parameters": {
+          "application_id": "string (Required) - ID of the application"
+        }
+      },
+      {
+        "name": "DISCORDBOT_UPDATE_APPLICATION",
+        "description": "Update an application.",
+        "parameters": {
+          "application_id": "string (Required) - ID of the application to update",
+          "name": "string (optional) - New name for the application",
+          "description": "string (optional) - New description for the application",
+          "icon": "string (optional) - New icon for the application (base64 encoded image data)",
+          "cover_image": "string (optional) - New cover image for the application (base64 encoded image data)",
+          "flags": "number (optional) - New flags for the application",
+          "tags": "string (optional) - JSON string of tags for the application",
+          "install_params": "string (optional) - JSON string of installation parameters",
+          "custom_install_url": "string (optional) - Custom installation URL",
+          "role_connections_verification_url": "string (optional) - Role connections verification URL"
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_MY_APPLICATION",
+        "description": "Get information about the current application.",
+        "parameters": {}
+      },
+      {
+        "name": "DISCORDBOT_UPDATE_MY_APPLICATION",
+        "description": "Update the current application.",
+        "parameters": {
+          "name": "string (optional) - New name for the application",
+          "description": "string (optional) - New description for the application",
+          "icon": "string (optional) - New icon for the application (base64 encoded image data)",
+          "cover_image": "string (optional) - New cover image for the application (base64 encoded image data)",
+          "flags": "number (optional) - New flags for the application",
+          "tags": "string (optional) - JSON string of tags for the application",
+          "install_params": "string (optional) - JSON string of installation parameters",
+          "custom_install_url": "string (optional) - Custom installation URL",
+          "role_connections_verification_url": "string (optional) - Role connections verification URL"
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_APPLICATION_ROLE_CONNECTION_METADATA_RECORDS",
+        "description": "Get metadata records for an application's role connections.",
+        "parameters": {
+          "application_id": "string (Required) - ID of the application"
+        }
+      },
+      {
+        "name": "DISCORDBOT_UPDATE_APPLICATION_ROLE_CONNECTION_METADATA_RECORDS",
+        "description": "Update metadata records for an application's role connections.",
+        "parameters": {
+          "application_id": "string (Required) - ID of the application",
+          "records": "string (Required) - JSON string of metadata records"
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_CHANNEL",
+        "description": "Get a channel by ID.",
+        "parameters": {
+          "channel_id": "string (Required) - ID of the channel to get"
+        }
+      },
+      {
+        "name": "DISCORDBOT_UPDATE_CHANNEL",
+        "description": "Update a channel's settings.",
+        "parameters": {
+          "channel_id": "string (Required) - ID of the channel to update",
+          "name": "string (optional) - New name for the channel",
+          "type": "number (optional) - New type of channel",
+          "position": "number (optional) - New position of the channel",
+          "topic": "string (optional) - New topic for the channel",
+          "nsfw": "boolean (optional) - Whether the channel is NSFW",
+          "rate_limit_per_user": "number (optional) - Rate limit per user in seconds",
+          "bitrate": "number (optional) - Bitrate for voice channels",
+          "user_limit": "number (optional) - User limit for voice channels",
+          "permission_overwrites": "string (optional) - JSON string of permission overwrites",
+          "parent_id": "string (optional) - ID of the parent category",
+          "rtc_region": "string (optional) - RTC region for voice channels",
+          "video_quality_mode": "number (optional) - Video quality mode",
+          "default_auto_archive_duration": "number (optional) - Default auto archive duration",
+          "flags": "number (optional) - Channel flags",
+          "available_tags": "string (optional) - JSON string of available tags",
+          "default_reaction_emoji": "string (optional) - JSON string of default reaction emoji",
+          "default_thread_rate_limit_per_user": "number (optional) - Default thread rate limit per user",
+          "default_sort_order": "number (optional) - Default sort order",
+          "default_forum_layout": "number (optional) - Default forum layout",
+          "reason": "string (optional) - Reason for the update (for audit logs)"
+        }
+      },
+      {
+        "name": "DISCORDBOT_DELETE_CHANNEL",
+        "description": "Delete a channel.",
+        "parameters": {
+          "channel_id": "string (Required) - ID of the channel to delete",
+          "reason": "string (optional) - Reason for deletion (for audit logs)"
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_CHANNEL_INVITES",
+        "description": "Get all invites for a channel.",
+        "parameters": {
+          "channel_id": "string (Required) - ID of the channel"
+        }
+      },
+      {
+        "name": "DISCORDBOT_SET_CHANNEL_PERMISSION_OVERWRITE",
+        "description": "Edit channel permission overwrites for a user or role.",
+        "parameters": {
+          "channel_id": "string (Required) - ID of the channel",
+          "overwrite_id": "string (Required) - ID of the user or role to set permissions for",
+          "allow": "string (optional) - Permission bitwise value for allowed permissions (use '0' for none)",
+          "deny": "string (optional) - Permission bitwise value for denied permissions (use '0' for none)",
+          "type": "number (optional) - Type of overwrite (0 = role, 1 = member)",
+          "reason": "string (optional) - Reason for setting permissions (for audit logs)"
+        }
+      },
+      {
+        "name": "DISCORDBOT_DELETE_CHANNEL_PERMISSION_OVERWRITE",
+        "description": "Delete a channel permission overwrite for a user or role.",
+        "parameters": {
+          "channel_id": "string (Required) - ID of the channel",
+          "overwrite_id": "string (Required) - ID of the user or role"
+        }
+      },
+      {
+        "name": "DISCORDBOT_FOLLOW_CHANNEL",
+        "description": "Follow a News Channel to send messages to a target channel.",
+        "parameters": {
+          "channel_id": "string (Required) - ID of the news channel to follow",
+          "webhook_channel_id": "string (Required) - ID of the channel where messages will be posted"
+        }
+      },
+      {
+        "name": "DISCORDBOT_TRIGGER_TYPING_INDICATOR",
+        "description": "Post a typing indicator for the specified channel.",
+        "parameters": {
+          "channel_id": "string (Required) - ID of the channel"
+        }
+      },
+      {
+        "name": "DISCORDBOT_CREATE_THREAD",
+        "description": "Create a new thread from an existing channel.",
+        "parameters": {
+          "channel_id": "string (Required) - ID of the channel to create thread in",
+          "name": "string (Required) - Name of the thread",
+          "type": "number (optional) - Type of thread (default: 11 = PUBLIC_THREAD, 10 = NEWS_THREAD, 12 = PRIVATE_THREAD)",
+          "auto_archive_duration": "number (optional) - Duration in minutes to automatically archive the thread (0 = disabled)",
+          "invitable": "boolean (optional) - Whether non-moderators can add other non-moderators to the thread",
+          "rate_limit_per_user": "number (optional) - Amount of seconds a user has to wait before sending another message",
+          "reason": "string (optional) - Reason for creating the thread (for audit logs)"
+        }
+      },
+      {
+        "name": "DISCORDBOT_CREATE_THREAD_FROM_MESSAGE",
+        "description": "Create a new thread from an existing message.",
+        "parameters": {
+          "channel_id": "string (Required) - ID of the channel containing the message",
+          "message_id": "string (Required) - ID of the message to create thread from",
+          "name": "string (Required) - Name of the thread",
+          "auto_archive_duration": "number (optional) - Duration in minutes to automatically archive the thread (0 = disabled)",
+          "rate_limit_per_user": "number (optional) - Amount of seconds a user has to wait before sending another message",
+          "reason": "string (optional) - Reason for creating the thread (for audit logs)"
+        }
+      },
+      {
+        "name": "DISCORDBOT_JOIN_THREAD",
+        "description": "Add the current user to a thread.",
+        "parameters": {
+          "channel_id": "string (Required) - ID of the thread"
+        }
+      },
+      {
+        "name": "DISCORDBOT_LEAVE_THREAD",
+        "description": "Remove the current user from a thread.",
+        "parameters": {
+          "channel_id": "string (Required) - ID of the thread"
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_THREAD_MEMBER",
+        "description": "Return a thread member object for the specified user.",
+        "parameters": {
+          "channel_id": "string (Required) - ID of the thread",
+          "user_id": "string (Required) - ID of the user"
+        }
+      },
+      {
+        "name": "DISCORDBOT_DELETE_THREAD_MEMBER",
+        "description": "Remove another member from a thread.",
+        "parameters": {
+          "channel_id": "string (Required) - ID of the thread",
+          "user_id": "string (Required) - ID of the user to remove"
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_THREAD_MEMBERS",
+        "description": "Return array of thread members objects that are members of the thread.",
+        "parameters": {
+          "channel_id": "string (Required) - ID of the thread",
+          "with_member": "boolean (optional) - Whether to include the guild member object for each thread member",
+          "after": "string (optional) - Get thread members after this user ID",
+          "limit": "number (optional) - Maximum number of thread members to return (0 = default)"
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_PUBLIC_ARCHIVED_THREADS",
+        "description": "Return archived threads in the channel that are public.",
+        "parameters": {
+          "channel_id": "string (Required) - ID of the channel",
+          "before": "string (optional) - Get threads before this thread ID",
+          "limit": "number (optional) - Maximum number of threads to return (0 = default)"
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_PRIVATE_ARCHIVED_THREADS",
+        "description": "Return archived threads in the channel that are private.",
+        "parameters": {
+          "channel_id": "string (Required) - ID of the channel",
+          "before": "string (optional) - Get threads before this thread ID",
+          "limit": "number (optional) - Maximum number of threads to return (0 = default)"
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_JOINED_PRIVATE_ARCHIVED_THREADS",
+        "description": "Return archived threads in the channel that are private and the current user has joined.",
+        "parameters": {
+          "channel_id": "string (Required) - ID of the channel",
+          "before": "string (optional) - Get threads before this thread ID",
+          "limit": "number (optional) - Maximum number of threads to return (0 = default)"
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_ACTIVE_THREADS",
+        "description": "Return all active threads in the channel.",
+        "parameters": {
+          "channel_id": "string (Required) - ID of the channel"
+        }
+      },
+      {
+        "name": "DISCORDBOT_CREATE_MESSAGE",
+        "description": "Create a new message in a channel.",
+        "parameters": {
+          "channel_id": "string (Required) - ID of the channel",
+          "content": "string (optional) - Message content",
+          "nonce": "string (optional) - Nonce for message identification",
+          "tts": "boolean (optional) - Whether to use text-to-speech",
+          "embeds": "string (optional) - JSON string of embeds",
+          "allowed_mentions": "string (optional) - JSON string of allowed mentions",
+          "message_reference": "string (optional) - JSON string of message reference",
+          "components": "string (optional) - JSON string of components",
+          "sticker_ids": "string (optional) - JSON string of sticker IDs",
+          "files": "string (optional) - JSON string of file paths or file objects",
+          "attachments": "string (optional) - JSON string of attachments",
+          "flags": "number (optional) - Message flags"
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_MESSAGE",
+        "description": "Get a specific message.",
+        "parameters": {
+          "channel_id": "string (Required) - ID of the channel",
+          "message_id": "string (Required) - ID of the message"
+        }
+      },
+      {
+        "name": "DISCORDBOT_UPDATE_MESSAGE",
+        "description": "Update a message.",
+        "parameters": {
+          "channel_id": "string (Required) - ID of the channel",
+          "message_id": "string (Required) - ID of the message",
+          "content": "string (optional) - New message content",
+          "embeds": "string (optional) - JSON string of embeds",
+          "allowed_mentions": "string (optional) - JSON string of allowed mentions",
+          "components": "string (optional) - JSON string of components",
+          "files": "string (optional) - JSON string of file paths or file objects",
+          "attachments": "string (optional) - JSON string of attachments",
+          "flags": "number (optional) - Message flags"
+        }
+      },
+      {
+        "name": "DISCORDBOT_DELETE_MESSAGE",
+        "description": "Delete a message.",
+        "parameters": {
+          "channel_id": "string (Required) - ID of the channel",
+          "message_id": "string (Required) - ID of the message"
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_MESSAGES",
+        "description": "Return the messages for a channel.",
+        "parameters": {
+          "channel_id": "string (Required) - ID of the channel",
+          "around": "string (optional) - Get messages around this message ID",
+          "before": "string (optional) - Get messages before this message ID",
+          "after": "string (optional) - Get messages after this message ID",
+          "limit": "number (optional) - Maximum number of messages to return (default: 50)"
+        }
+      },
+      {
+        "name": "DISCORDBOT_PIN_MESSAGE",
+        "description": "Pin a message in a channel.",
+        "parameters": {
+          "channel_id": "string (Required) - ID of the channel",
+          "message_id": "string (Required) - ID of the message"
+        }
+      },
+      {
+        "name": "DISCORDBOT_UNPIN_MESSAGE",
+        "description": "Unpin a message in a channel.",
+        "parameters": {
+          "channel_id": "string (Required) - ID of the channel",
+          "message_id": "string (Required) - ID of the message"
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_PINNED_MESSAGES",
+        "description": "Return all pinned messages in the channel.",
+        "parameters": {
+          "channel_id": "string (Required) - ID of the channel"
+        }
+      },
+      {
+        "name": "DISCORDBOT_ADD_MY_MESSAGE_REACTION",
+        "description": "Create a reaction for the message.",
+        "parameters": {
+          "channel_id": "string (Required) - ID of the channel",
+          "message_id": "string (Required) - ID of the message",
+          "emoji": "string (Required) - Emoji to react with"
+        }
+      },
+      {
+        "name": "DISCORDBOT_DELETE_MY_MESSAGE_REACTION",
+        "description": "Delete a reaction the current user has made for the message.",
+        "parameters": {
+          "channel_id": "string (Required) - ID of the channel",
+          "message_id": "string (Required) - ID of the message",
+          "emoji": "string (Required) - Emoji to remove"
+        }
+      },
+      {
+        "name": "DISCORDBOT_DELETE_USER_MESSAGE_REACTION",
+        "description": "Delete another user's reaction.",
+        "parameters": {
+          "channel_id": "string (Required) - ID of the channel",
+          "message_id": "string (Required) - ID of the message",
+          "emoji": "string (Required) - Emoji to remove",
+          "user_id": "string (Required) - ID of the user"
+        }
+      },
+      {
+        "name": "DISCORDBOT_DELETE_ALL_MESSAGE_REACTIONS",
+        "description": "Delete all reactions on a message.",
+        "parameters": {
+          "channel_id": "string (Required) - ID of the channel",
+          "message_id": "string (Required) - ID of the message"
+        }
+      },
+      {
+        "name": "DISCORDBOT_DELETE_ALL_MESSAGE_REACTIONS_BY_EMOJI",
+        "description": "Delete all the reactions for the given emoji on a message.",
+        "parameters": {
+          "channel_id": "string (Required) - ID of the channel",
+          "message_id": "string (Required) - ID of the message",
+          "emoji": "string (Required) - Emoji to remove all reactions for"
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_MESSAGE_REACTIONS_BY_EMOJI",
+        "description": "Get a list of users that reacted with this emoji.",
+        "parameters": {
+          "channel_id": "string (Required) - ID of the channel",
+          "message_id": "string (Required) - ID of the message",
+          "emoji": "string (Required) - Emoji to get reactions for",
+          "after": "string (optional) - Get users after this user ID",
+          "limit": "number (optional) - Maximum number of users to return (default: 25)"
+        }
+      },
+      {
+        "name": "DISCORDBOT_BULK_DELETE_MESSAGES",
+        "description": "Delete multiple messages in a single request.",
+        "parameters": {
+          "channel_id": "string (Required) - ID of the channel",
+          "messages": "array (Required) - List of message IDs to delete"
+        }
+      },
+      {
+        "name": "DISCORDBOT_CROSSPOST_MESSAGE",
+        "description": "Crosspost a message in a News Channel to following channels.",
+        "parameters": {
+          "channel_id": "string (Required) - ID of the news channel",
+          "message_id": "string (Required) - ID of the message to crosspost"
+        }
+      },
+      {
+        "name": "DISCORDBOT_CREATE_AUTO_MODERATION_RULE",
+        "description": "Create a new auto moderation rule for a Discord guild.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild where the rule will be created",
+          "name": "string (Required) - Name of the auto moderation rule",
+          "event_type": "number (Required) - Type of event that triggers the rule (1 = MESSAGE_SEND)",
+          "trigger_type": "number (Required) - Type of trigger for the rule (1 = KEYWORD, 2 = SPAM, 3 = KEYWORD_PRESET, 4 = MENTION_SPAM)",
+          "trigger_metadata": "string (optional) - JSON string of trigger-specific metadata",
+          "actions": "string (optional) - JSON string of actions to take when rule is triggered",
+          "enabled": "boolean (optional) - Whether the rule is enabled (default: true)",
+          "exempt_roles": "string (optional) - JSON string of role IDs exempt from the rule",
+          "exempt_channels": "string (optional) - JSON string of channel IDs exempt from the rule",
+          "reason": "string (optional) - Reason for creating the rule (for audit logs)"
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_AUTO_MODERATION_RULE",
+        "description": "Get a single auto moderation rule.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild",
+          "rule_id": "string (Required) - ID of the rule"
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_AUTO_MODERATION_RULES",
+        "description": "Get all auto moderation rules for a guild.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild"
+        }
+      },
+      {
+        "name": "DISCORDBOT_UPDATE_AUTO_MODERATION_RULE",
+        "description": "Modify an existing auto moderation rule.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild",
+          "rule_id": "string (Required) - ID of the rule to update",
+          "name": "string (optional) - New name for the rule",
+          "event_type": "number (optional) - New event type",
+          "trigger_metadata": "string (optional) - JSON string of trigger-specific metadata",
+          "actions": "string (optional) - JSON string of actions to take when rule is triggered",
+          "enabled": "boolean (optional) - Whether the rule is enabled",
+          "exempt_roles": "string (optional) - JSON string of role IDs exempt from the rule",
+          "exempt_channels": "string (optional) - JSON string of channel IDs exempt from the rule",
+          "reason": "string (optional) - Reason for updating the rule (for audit logs)"
+        }
+      },
+      {
+        "name": "DISCORDBOT_DELETE_AUTO_MODERATION_RULE",
+        "description": "Delete an auto moderation rule.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild",
+          "rule_id": "string (Required) - ID of the rule to delete",
+          "reason": "string (optional) - Reason for deleting the rule (for audit logs)"
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_AUTO_MODERATION_RULE_EXECUTION",
+        "description": "Get an auto moderation rule execution.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild",
+          "execution_id": "string (Required) - ID of the execution"
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_AUTO_MODERATION_RULE_EXECUTIONS",
+        "description": "List auto moderation rule executions.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild",
+          "rule_id": "string (Required) - ID of the rule",
+          "before": "string (optional) - Get executions before this execution ID",
+          "after": "string (optional) - Get executions after this execution ID",
+          "limit": "number (optional) - Maximum number of executions to return"
+        }
+      },
+      {
+        "name": "DISCORDBOT_CREATE_GUILD",
+        "description": "Create a new guild.",
+        "parameters": {
+          "name": "string (Required) - Name of the guild",
+          "region": "string (optional) - Voice region",
+          "icon": "string (optional) - Base64 encoded icon",
+          "verification_level": "number (optional) - Verification level",
+          "default_message_notifications": "number (optional) - Default message notification level",
+          "explicit_content_filter": "number (optional) - Explicit content filter level",
+          "roles": "string (optional) - JSON string of roles",
+          "channels": "string (optional) - JSON string of channels",
+          "afk_channel_id": "string (optional) - ID of the AFK channel",
+          "afk_timeout": "number (optional) - AFK timeout in seconds",
+          "system_channel_id": "string (optional) - ID of the system channel",
+          "system_channel_flags": "number (optional) - System channel flags"
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_GUILD",
+        "description": "Get a guild by ID.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild",
+          "with_counts": "boolean (optional) - Whether to include approximate member and presence counts"
+        }
+      },
+      {
+        "name": "DISCORDBOT_UPDATE_GUILD",
+        "description": "Update a guild's settings.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild",
+          "name": "string (optional) - New name for the guild",
+          "region": "string (optional) - New voice region",
+          "icon": "string (optional) - New base64 encoded icon",
+          "verification_level": "number (optional) - New verification level",
+          "default_message_notifications": "number (optional) - New default message notification level",
+          "explicit_content_filter": "number (optional) - New explicit content filter level",
+          "afk_channel_id": "string (optional) - New ID of the AFK channel",
+          "afk_timeout": "number (optional) - New AFK timeout in seconds",
+          "system_channel_id": "string (optional) - New ID of the system channel",
+          "system_channel_flags": "number (optional) - New system channel flags",
+          "rules_channel_id": "string (optional) - New ID of the rules channel",
+          "public_updates_channel_id": "string (optional) - New ID of the public updates channel",
+          "preferred_locale": "string (optional) - New preferred locale",
+          "features": "string (optional) - JSON string of guild features",
+          "description": "string (optional) - New description for the guild",
+          "banner": "string (optional) - New base64 encoded banner",
+          "splash": "string (optional) - New base64 encoded splash",
+          "discovery_splash": "string (optional) - New base64 encoded discovery splash",
+          "owner_id": "string (optional) - New owner ID",
+          "reason": "string (optional) - Reason for the update (for audit logs)"
+        }
+      },
+      {
+        "name": "DISCORDBOT_DELETE_GUILD",
+        "description": "Delete a guild permanently.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild to delete"
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_GUILD_CHANNELS",
+        "description": "Get all channels in a guild.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild"
+        }
+      },
+      {
+        "name": "DISCORDBOT_CREATE_GUILD_CHANNEL",
+        "description": "Create a new channel in a guild.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild",
+          "name": "string (Required) - Name of the channel",
+          "type": "number (optional) - Type of channel",
+          "topic": "string (optional) - Topic for the channel",
+          "bitrate": "number (optional) - Bitrate for voice channels",
+          "user_limit": "number (optional) - User limit for voice channels",
+          "rate_limit_per_user": "number (optional) - Rate limit per user in seconds",
+          "position": "number (optional) - Position of the channel",
+          "permission_overwrites": "string (optional) - JSON string of permission overwrites",
+          "parent_id": "string (optional) - ID of the parent category",
+          "nsfw": "boolean (optional) - Whether the channel is NSFW",
+          "rtc_region": "string (optional) - RTC region for voice channels",
+          "video_quality_mode": "number (optional) - Video quality mode",
+          "default_auto_archive_duration": "number (optional) - Default auto archive duration",
+          "default_reaction_emoji": "string (optional) - JSON string of default reaction emoji",
+          "available_tags": "string (optional) - JSON string of available tags",
+          "default_sort_order": "number (optional) - Default sort order",
+          "reason": "string (optional) - Reason for creating the channel (for audit logs)"
+        }
+      },
+      {
+        "name": "DISCORDBOT_UPDATE_GUILD_CHANNEL_POSITIONS",
+        "description": "Update the positions of channels in a guild.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild",
+          "positions": "string (Required) - JSON string of channel positions"
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_ACTIVE_GUILD_THREADS",
+        "description": "List all active threads in a guild.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild"
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_GUILD_MEMBER",
+        "description": "Get a member of a guild.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild",
+          "user_id": "string (Required) - ID of the user"
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_GUILD_MEMBERS",
+        "description": "List members of a guild.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild",
+          "limit": "number (optional) - Maximum number of members to return",
+          "after": "string (optional) - Get members after this user ID"
+        }
+      },
+      {
+        "name": "DISCORDBOT_SEARCH_GUILD_MEMBERS",
+        "description": "Search for members in a guild.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild",
+          "query": "string (optional) - Search query string",
+          "limit": "number (optional) - Maximum number of results"
+        }
+      },
+      {
+        "name": "DISCORDBOT_UPDATE_GUILD_MEMBER",
+        "description": "Update a member of a guild.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild",
+          "user_id": "string (Required) - ID of the user",
+          "nick": "string (optional) - New nickname for the member",
+          "roles": "string (optional) - JSON string of role IDs",
+          "mute": "boolean (optional) - Whether to mute the member",
+          "deaf": "boolean (optional) - Whether to deafen the member",
+          "channel_id": "string (optional) - ID of the channel to move the member to",
+          "communication_disabled_until": "string (optional) - When to remove the timeout",
+          "flags": "number (optional) - Member flags",
+          "reason": "string (optional) - Reason for the update (for audit logs)"
+        }
+      },
+      {
+        "name": "DISCORDBOT_DELETE_GUILD_MEMBER",
+        "description": "Remove a member from a guild.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild",
+          "user_id": "string (Required) - ID of the user to remove",
+          "reason": "string (optional) - Reason for removal (for audit logs)"
+        }
+      },
+      {
+        "name": "DISCORDBOT_ADD_GUILD_MEMBER_ROLE",
+        "description": "Add a role to a guild member.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild",
+          "user_id": "string (Required) - ID of the user",
+          "role_id": "string (Required) - ID of the role",
+          "reason": "string (optional) - Reason for adding the role (for audit logs)"
+        }
+      },
+      {
+        "name": "DISCORDBOT_DELETE_GUILD_MEMBER_ROLE",
+        "description": "Remove a role from a guild member.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild",
+          "user_id": "string (Required) - ID of the user",
+          "role_id": "string (Required) - ID of the role",
+          "reason": "string (optional) - Reason for removing the role (for audit logs)"
+        }
+      },
+      {
+        "name": "DISCORDBOT_BAN_USER_FROM_GUILD",
+        "description": "Ban a user from a guild.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild",
+          "user_id": "string (Required) - ID of the user to ban",
+          "delete_message_days": "number (optional) - Number of days of messages to delete (0-7)",
+          "delete_message_seconds": "number (optional) - Number of seconds of messages to delete",
+          "reason": "string (optional) - Reason for the ban (for audit logs)"
+        }
+      },
+      {
+        "name": "DISCORDBOT_UNBAN_USER_FROM_GUILD",
+        "description": "Remove a ban for a user from a guild.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild",
+          "user_id": "string (Required) - ID of the user to unban",
+          "reason": "string (optional) - Reason for the unban (for audit logs)"
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_GUILD_BANS",
+        "description": "Get all bans for a guild.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild",
+          "limit": "number (optional) - Maximum number of bans to return",
+          "before": "string (optional) - Get bans before this user ID",
+          "after": "string (optional) - Get bans after this user ID"
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_GUILD_BAN",
+        "description": "Get a ban for a user in a guild.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild",
+          "user_id": "string (Required) - ID of the user"
+        }
+      },
+      {
+        "name": "DISCORDBOT_CREATE_GUILD_ROLE",
+        "description": "Create a new role in a guild.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild",
+          "name": "string (optional) - Name of the role",
+          "permissions": "string (optional) - Permission bitwise value",
+          "color": "number (optional) - Color of the role",
+          "hoist": "boolean (optional) - Whether the role is hoisted",
+          "icon": "string (optional) - Base64 encoded icon",
+          "unicode_emoji": "string (optional) - Unicode emoji for the role",
+          "mentionable": "boolean (optional) - Whether the role is mentionable",
+          "reason": "string (optional) - Reason for creating the role (for audit logs)"
+        }
+      },
+      {
+        "name": "DISCORDBOT_UPDATE_GUILD_ROLE_POSITIONS",
+        "description": "Update the positions of roles in a guild.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild",
+          "positions": "string (Required) - JSON string of role positions"
+        }
+      },
+      {
+        "name": "DISCORDBOT_UPDATE_GUILD_ROLE",
+        "description": "Update a role in a guild.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild",
+          "role_id": "string (Required) - ID of the role",
+          "name": "string (optional) - New name for the role",
+          "permissions": "string (optional) - New permission bitwise value",
+          "color": "number (optional) - New color of the role",
+          "hoist": "boolean (optional) - Whether the role is hoisted",
+          "icon": "string (optional) - New base64 encoded icon",
+          "unicode_emoji": "string (optional) - New unicode emoji for the role",
+          "mentionable": "boolean (optional) - Whether the role is mentionable",
+          "reason": "string (optional) - Reason for updating the role (for audit logs)"
+        }
+      },
+      {
+        "name": "DISCORDBOT_DELETE_GUILD_ROLE",
+        "description": "Delete a role from a guild.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild",
+          "role_id": "string (Required) - ID of the role",
+          "reason": "string (optional) - Reason for deleting the role (for audit logs)"
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_GUILD_ROLES",
+        "description": "Get all roles in a guild.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild"
+        }
+      },
+      {
+        "name": "DISCORDBOT_CREATE_GUILD_EMOJI",
+        "description": "Create a new emoji for the guild.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild",
+          "name": "string (Required) - Name of the emoji",
+          "image": "string (Required) - Base64 encoded image data",
+          "roles": "array (optional) - List of role IDs allowed to use this emoji",
+          "reason": "string (optional) - Reason for creating the emoji (for audit logs)"
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_GUILD_EMOJI",
+        "description": "Return an emoji object for the given guild and emoji IDs.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild",
+          "emoji_id": "string (Required) - ID of the emoji"
+        }
+      },
+      {
+        "name": "DISCORDBOT_UPDATE_GUILD_EMOJI",
+        "description": "Modify the given emoji.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild",
+          "emoji_id": "string (Required) - ID of the emoji",
+          "name": "string (optional) - New name for the emoji",
+          "roles": "array (optional) - New list of role IDs allowed to use this emoji",
+          "reason": "string (optional) - Reason for updating the emoji (for audit logs)"
+        }
+      },
+      {
+        "name": "DISCORDBOT_DELETE_GUILD_EMOJI",
+        "description": "Delete the given emoji.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild",
+          "emoji_id": "string (Required) - ID of the emoji",
+          "reason": "string (optional) - Reason for deleting the emoji (for audit logs)"
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_GUILD_EMOJIS",
+        "description": "Return a list of emoji objects for the given guild.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild"
+        }
+      },
+      {
+        "name": "DISCORDBOT_CREATE_GUILD_STICKER",
+        "description": "Create a new sticker for the guild.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild",
+          "name": "string (Required) - Name of the sticker",
+          "description": "string (Required) - Description of the sticker",
+          "tags": "string (Required) - Tags for the sticker",
+          "file": "string (Required) - File path or file object for the sticker",
+          "reason": "string (optional) - Reason for creating the sticker (for audit logs)"
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_GUILD_STICKER",
+        "description": "Return a sticker object for the given guild and sticker IDs.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild",
+          "sticker_id": "string (Required) - ID of the sticker"
+        }
+      },
+      {
+        "name": "DISCORDBOT_UPDATE_GUILD_STICKER",
+        "description": "Modify the given sticker.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild",
+          "sticker_id": "string (Required) - ID of the sticker",
+          "name": "string (optional) - New name for the sticker",
+          "description": "string (optional) - New description for the sticker",
+          "tags": "string (optional) - New tags for the sticker",
+          "reason": "string (optional) - Reason for updating the sticker (for audit logs)"
+        }
+      },
+      {
+        "name": "DISCORDBOT_DELETE_GUILD_STICKER",
+        "description": "Delete the given sticker.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild",
+          "sticker_id": "string (Required) - ID of the sticker",
+          "reason": "string (optional) - Reason for deleting the sticker (for audit logs)"
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_GUILD_STICKERS",
+        "description": "Return a list of sticker objects for the given guild.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild"
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_STICKER_PACKS",
+        "description": "Return the list of sticker packs available to Nitro subscribers.",
+        "parameters": {}
+      },
+      {
+        "name": "DISCORDBOT_GET_STICKER",
+        "description": "Return a sticker object for the given sticker ID.",
+        "parameters": {
+          "sticker_id": "string (Required) - ID of the sticker"
+        }
+      },
+      {
+        "name": "DISCORDBOT_CREATE_WEBHOOK",
+        "description": "Create a new webhook.",
+        "parameters": {
+          "channel_id": "string (Required) - ID of the channel",
+          "name": "string (Required) - Name of the webhook",
+          "avatar": "string (optional) - Base64 encoded avatar",
+          "reason": "string (optional) - Reason for creating the webhook (for audit logs)"
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_WEBHOOK",
+        "description": "Return the new webhook object for the given id.",
+        "parameters": {
+          "webhook_id": "string (Required) - ID of the webhook"
+        }
+      },
+      {
+        "name": "DISCORDBOT_UPDATE_WEBHOOK",
+        "description": "Modify a webhook.",
+        "parameters": {
+          "webhook_id": "string (Required) - ID of the webhook",
+          "name": "string (optional) - New name for the webhook",
+          "avatar": "string (optional) - New base64 encoded avatar",
+          "channel_id": "string (optional) - New channel ID for the webhook",
+          "reason": "string (optional) - Reason for updating the webhook (for audit logs)"
+        }
+      },
+      {
+        "name": "DISCORDBOT_DELETE_WEBHOOK",
+        "description": "Delete a webhook permanently.",
+        "parameters": {
+          "webhook_id": "string (Required) - ID of the webhook",
+          "reason": "string (optional) - Reason for deleting the webhook (for audit logs)"
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_WEBHOOK_BY_TOKEN",
+        "description": "Return the new webhook object for the given id.",
+        "parameters": {
+          "webhook_id": "string (Required) - ID of the webhook",
+          "webhook_token": "string (Required) - Token of the webhook"
+        }
+      },
+      {
+        "name": "DISCORDBOT_UPDATE_WEBHOOK_BY_TOKEN",
+        "description": "Modify a webhook using its token.",
+        "parameters": {
+          "webhook_id": "string (Required) - ID of the webhook",
+          "webhook_token": "string (Required) - Token of the webhook",
+          "name": "string (optional) - New name for the webhook",
+          "avatar": "string (optional) - New base64 encoded avatar",
+          "channel_id": "string (optional) - New channel ID for the webhook"
+        }
+      },
+      {
+        "name": "DISCORDBOT_DELETE_WEBHOOK_BY_TOKEN",
+        "description": "Delete a webhook using its token.",
+        "parameters": {
+          "webhook_id": "string (Required) - ID of the webhook",
+          "webhook_token": "string (Required) - Token of the webhook"
+        }
+      },
+      {
+        "name": "DISCORDBOT_EXECUTE_WEBHOOK",
+        "description": "Execute a webhook to send a message.",
+        "parameters": {
+          "webhook_id": "string (Required) - ID of the webhook",
+          "webhook_token": "string (Required) - Token of the webhook",
+          "content": "string (optional) - Message content",
+          "username": "string (optional) - Override the default username",
+          "avatar_url": "string (optional) - Override the default avatar URL",
+          "tts": "boolean (optional) - Whether to use text-to-speech",
+          "embeds": "string (optional) - JSON string of embeds",
+          "allowed_mentions": "string (optional) - JSON string of allowed mentions",
+          "components": "string (optional) - JSON string of components",
+          "files": "string (optional) - JSON string of file paths or file objects",
+          "attachments": "string (optional) - JSON string of attachments",
+          "flags": "number (optional) - Message flags",
+          "thread_name": "string (optional) - Name of the thread to create",
+          "thread_id": "string (optional) - ID of the thread to send the message to",
+          "wait": "boolean (optional) - Whether to wait for server confirmation"
+        }
+      },
+      {
+        "name": "DISCORDBOT_EXECUTE_SLACK_COMPATIBLE_WEBHOOK",
+        "description": "Execute a webhook with a Slack-compatible payload.",
+        "parameters": {
+          "webhook_id": "string (Required) - ID of the webhook",
+          "webhook_token": "string (Required) - Token of the webhook",
+          "payload": "string (Required) - Slack-compatible message payload",
+          "wait": "boolean (optional) - Whether to wait for server confirmation",
+          "thread_id": "string (optional) - ID of the thread to send the message to"
+        }
+      },
+      {
+        "name": "DISCORDBOT_EXECUTE_GITHUB_COMPATIBLE_WEBHOOK",
+        "description": "Execute a webhook with a GitHub-compatible payload.",
+        "parameters": {
+          "webhook_id": "string (Required) - ID of the webhook",
+          "webhook_token": "string (Required) - Token of the webhook",
+          "payload": "string (Required) - GitHub-compatible message payload",
+          "wait": "boolean (Required) - Whether to wait for server confirmation",
+          "thread_id": "string (Required) - ID of the thread to send the message to"
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_WEBHOOK_MESSAGE",
+        "description": "Get a message sent by a webhook.",
+        "parameters": {
+          "webhook_id": "string (Required) - ID of the webhook",
+          "webhook_token": "string (Required) - Token of the webhook",
+          "message_id": "string (Required) - ID of the message",
+          "thread_id": "string (optional) - ID of the thread"
+        }
+      },
+      {
+        "name": "DISCORDBOT_UPDATE_WEBHOOK_MESSAGE",
+        "description": "Update a message sent by a webhook.",
+        "parameters": {
+          "webhook_id": "string (Required) - ID of the webhook",
+          "webhook_token": "string (Required) - Token of the webhook",
+          "message_id": "string (Required) - ID of the message",
+          "content": "string (optional) - New message content",
+          "embeds": "string (optional) - JSON string of embeds",
+          "allowed_mentions": "string (optional) - JSON string of allowed mentions",
+          "components": "string (optional) - JSON string of components",
+          "files": "string (optional) - JSON string of file paths or file objects",
+          "attachments": "string (optional) - JSON string of attachments",
+          "thread_id": "string (optional) - ID of the thread"
+        }
+      },
+      {
+        "name": "DISCORDBOT_DELETE_WEBHOOK_MESSAGE",
+        "description": "Delete a message sent by a webhook.",
+        "parameters": {
+          "webhook_id": "string (Required) - ID of the webhook",
+          "webhook_token": "string (Required) - Token of the webhook",
+          "message_id": "string (Required) - ID of the message",
+          "thread_id": "string (optional) - ID of the thread"
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_CHANNEL_WEBHOOKS",
+        "description": "Get all webhooks for a channel.",
+        "parameters": {
+          "channel_id": "string (Required) - ID of the channel"
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_GUILD_WEBHOOKS",
+        "description": "Get all webhooks for a guild.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild"
+        }
+      },
+      {
+        "name": "DISCORDBOT_CREATE_CHANNEL_INVITE",
+        "description": "Create a new invite for a channel.",
+        "parameters": {
+          "channel_id": "string (Required) - ID of the channel",
+          "max_age": "number (optional) - Duration of invite in seconds (0 = never expires)",
+          "max_uses": "number (optional) - Max number of uses (0 = unlimited)",
+          "temporary": "boolean (optional) - Whether this invite only grants temporary membership",
+          "unique": "boolean (optional) - If true, don't try to reuse a similar invite",
+          "target_type": "number (optional) - Type of target for voice channel invites",
+          "target_user_id": "string (optional) - ID of the user whose stream to display",
+          "target_application_id": "string (optional) - ID of the embedded application",
+          "reason": "string (optional) - Reason for creating the invite (for audit logs)"
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_CHANNEL_INVITES",
+        "description": "Get all invites for a channel.",
+        "parameters": {
+          "channel_id": "string (Required) - ID of the channel"
+        }
+      },
+      {
+        "name": "DISCORDBOT_LIST_GUILD_INVITES",
+        "description": "Get all invites for a guild.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild"
+        }
+      },
+      {
+        "name": "DISCORDBOT_DELETE_INVITE",
+        "description": "Delete an invite.",
+        "parameters": {
+          "code": "string (Required) - Code of the invite",
+          "reason": "string (optional) - Reason for deleting the invite (for audit logs)"
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_INVITE",
+        "description": "Get an invite by its code.",
+        "parameters": {
+          "code": "string (Required) - Code of the invite",
+          "with_counts": "boolean (optional) - Whether to include approximate member counts",
+          "with_expiration": "boolean (optional) - Whether to include expiration date",
+          "guild_scheduled_event_id": "string (optional) - ID of the guild scheduled event"
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_GUILD_VANITY_URL",
+        "description": "Get the vanity URL for a guild.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild"
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_GUILD_WIDGET",
+        "description": "Get the widget for a guild.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild"
+        }
+      },
+      {
+        "name": "DISCORDBOT_GET_GUILD_WIDGET_SETTINGS",
+        "description": "Get the widget settings for a guild.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild"
+        }
+      },
+      {
+        "name": "DISCORDBOT_UPDATE_GUILD_WIDGET_SETTINGS",
+        "description": "Update the widget settings for a guild.",
+        "parameters": {
+          "guild_id": "string (Required) - ID of the guild",
+          "enabled": "boolean (optional) - Whether the widget is enabled",
+          "channel_id": "string (optional) - ID of the widget channel"
+        }
+      }
+    ]
+  }
+}

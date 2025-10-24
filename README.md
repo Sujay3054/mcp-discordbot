@@ -329,3 +329,137 @@ This server includes production-ready features:
 - Automatic `.env` file loading for easy configuration
 - Secure HTTP client with proper timeout handling
 - Input validation for all parameters
+
+# Discord Webhook Tools Comparison
+
+## 🔧 Available Webhook Tools
+
+### 1. DISCORDBOT_EXECUTE_WEBHOOK ⭐ (Recommended)
+**Purpose**: Send rich Discord messages with full Discord features
+
+**Parameters**:
+- `webhook_id` (str): Webhook ID
+- `webhook_token` (str): Webhook token
+- `content` (Optional[str]): Message content (max 2000 chars)
+- `username` (Optional[str]): Override webhook username
+- `avatar_url` (Optional[str]): Override webhook avatar
+- `tts` (bool): Text-to-speech
+- `embeds` (Optional[List[Dict]]): Rich embeds
+- `components` (Optional[List[Dict]]): Buttons, select menus
+- `files` (Optional[List]): File uploads
+- `attachments` (Optional[List[Dict]]): Attachment objects
+- `flags` (Optional[int]): Message flags
+- `thread_name` (Optional[str]): Thread creation
+- `wait` (bool): Wait for message creation
+
+**Use Case**: Full Discord integration, rich messages, file uploads, interactive components
+
+---
+
+### 2. DISCORDBOT_EXECUTE_SLACK_COMPATIBLE_WEBHOOK
+**Purpose**: Send messages using Slack's webhook format
+
+**Parameters**:
+- `webhook_id` (str): Webhook ID
+- `webhook_token` (str): Webhook token
+- `payload` (Dict[str, Any]): Slack-compatible payload
+- `wait` (bool): Wait for message creation
+- `thread_id` (Optional[str]): Thread ID
+
+**Payload Format**:
+```json
+{
+  "text": "Hello from Slack!",
+  "attachments": [
+    {
+      "color": "good",
+      "title": "Notification",
+      "text": "This is a test message"
+    }
+  ]
+}
+```
+
+**Use Case**: Migrating from Slack, integrating with Slack-compatible systems
+
+---
+
+### 3. DISCORDBOT_EXECUTE_GITHUB_COMPATIBLE_WEBHOOK
+**Purpose**: Send messages using GitHub's webhook format
+
+**Parameters**:
+- `webhook_id` (str): Webhook ID
+- `webhook_token` (str): Webhook token
+- `payload` (Dict[str, Any]): GitHub-compatible payload
+- `wait` (bool): Wait for message creation
+- `thread_id` (Optional[str]): Thread ID
+
+**Payload Format**:
+```json
+{
+  "sender": {
+    "login": "username",
+    "id": 12345,
+    "avatar_url": "https://github.com/images/error/octocat_happy.gif",
+    "html_url": "https://github.com/username"
+  },
+  "repository": {
+    "name": "repo-name",
+    "full_name": "owner/repo-name",
+    "id": 123456789,
+    "html_url": "https://github.com/owner/repo-name"
+  },
+  "action": "test"
+}
+```
+
+**Use Case**: GitHub integration, CI/CD notifications, repository events
+
+---
+
+## 📊 Feature Comparison Table
+
+| Feature | Standard Webhook | Slack-Compatible | GitHub-Compatible |
+|---------|------------------|------------------|-------------------|
+| **Rich Embeds** | ✅ Full Discord embeds | ❌ Limited attachments | ❌ Limited attachments |
+| **Components** | ✅ Buttons, select menus | ❌ Not supported | ❌ Not supported |
+| **File Uploads** | ✅ Multiple files | ❌ Limited support | ❌ Limited support |
+| **Thread Support** | ✅ `thread_name` parameter | ✅ `thread_id` parameter | ✅ `thread_id` parameter |
+| **Complexity** | 🔴 More parameters | 🟢 Simple payload | 🔴 Complex payload |
+| **Reliability** | ✅ High | 🟡 Medium | 🔴 Low (strict format) |
+| **Migration** | ❌ Discord-specific | ✅ Easy from Slack | ✅ Easy from GitHub |
+| **Use Case** | General Discord integration | Slack migration | GitHub integration |
+
+---
+
+## 🎯 When to Use Which
+
+### Use DISCORDBOT_EXECUTE_WEBHOOK when:
+- ✅ Building Discord-native integrations
+- ✅ Need rich embeds, components, file uploads
+- ✅ Want maximum Discord features
+- ✅ Sending custom messages
+
+### Use DISCORDBOT_EXECUTE_SLACK_COMPATIBLE_WEBHOOK when:
+- ✅ Migrating from Slack to Discord
+- ✅ Integrating with existing Slack webhook systems
+- ✅ Need simple, text-based messages
+- ✅ Working with Slack-compatible tools
+
+### Use DISCORDBOT_EXECUTE_GITHUB_COMPATIBLE_WEBHOOK when:
+- ✅ GitHub integration notifications
+- ✅ CI/CD pipeline notifications
+- ✅ Repository event notifications
+- ✅ Issue/PR notifications
+
+---
+
+## 🚨 Important Notes
+
+- **Standard Webhook** is the most reliable and feature-rich
+- **Slack-Compatible** is good for simple messages and Slack migration
+- **GitHub-Compatible** is complex and requires exact GitHub webhook format
+- All tools support the same webhook ID and token
+- Thread support varies between tools (use `thread_name` vs `thread_id`)
+
+**Recommendation**: Start with the **Standard Webhook** for most use cases, only use the compatible webhooks when specifically migrating from Slack/GitHub systems.

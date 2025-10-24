@@ -464,9 +464,193 @@ This server includes production-ready features:
 
 **Recommendation**: Start with the **Standard Webhook** for most use cases, only use the compatible webhooks when specifically migrating from Slack/GitHub systems.
 
+# Discord Webhook Message Management Tools
+
+## 🔧 Available Tools
+
+### 1. DISCORDBOT_GET_ORIGINAL_WEBHOOK_MESSAGE
+**Purpose**: Retrieves the original message that was created by the webhook.
+
+**Parameters**:
+- `webhook_id` (str): The ID of the webhook
+- `webhook_token` (str): The token of the webhook
+- `thread_id` (Optional[str]): The thread ID if the message is in a thread
+
+**Returns**: The original webhook message object
+
+**⚠️ Important Note**: This endpoint only works if the webhook has an "original" message reference. If no original message exists, the tool will return a helpful error message with instructions.
+
+---
+
+### 2. DISCORDBOT_UPDATE_ORIGINAL_WEBHOOK_MESSAGE
+**Purpose**: Updates the original message that was created by the webhook.
+
+**Parameters**:
+- `webhook_id` (str): The ID of the webhook
+- `webhook_token` (str): The token of the webhook
+- `content` (Optional[str]): New message content
+- `embeds` (Optional[List[Dict]]): Array of embed objects
+- `allowed_mentions` (Optional[Dict]): Allowed mentions configuration
+- `components` (Optional[List[Dict]]): Array of message components
+- `files` (Optional[List]): Array of files to upload
+- `attachments` (Optional[List[Dict]]): Array of attachment objects
+- `thread_id` (Optional[str]): The thread ID if the message is in a thread
+
+**Returns**: Updated message object
+
+---
+
+### 3. DISCORDBOT_DELETE_ORIGINAL_WEBHOOK_MESSAGE
+**Purpose**: Deletes the original message that was created by the webhook.
+
+**Parameters**:
+- `webhook_id` (str): The ID of the webhook
+- `webhook_token` (str): The token of the webhook
+- `thread_id` (Optional[str]): The thread ID if the message is in a thread
+
+**Returns**: Confirmation of deletion
+
+---
+
+## 🚨 Common Issues & Solutions
+
+### Issue: "Unknown Message" Error
+**Error**: `Discord API Error 404: {'message': 'Unknown Message', 'code': 10008}`
+
+**Cause**: The webhook doesn't have an "original" message reference.
+
+**Solutions**:
+1. **Send a webhook message first** using `DISCORDBOT_EXECUTE_WEBHOOK` with `wait: true`
+2. **Use DISCORDBOT_GET_WEBHOOK_MESSAGE** with a specific message ID instead
+3. **Check if the webhook has sent any messages** to the channel
+
+### Issue: "No Original Message Found"
+**Error**: `No original webhook message found`
+
+**Solutions**:
+1. **Create an original message**:
+   ```python
+   # First, send a webhook message
+   result = await DISCORDBOT_EXECUTE_WEBHOOK(
+       webhook_id="your_webhook_id",
+       webhook_token="your_webhook_token",
+       content="Test message to create original",
+       wait=True  # Important: wait for message creation
+   )
+   
+   # Then you can use the original message tools
+   original = await DISCORDBOT_GET_ORIGINAL_WEBHOOK_MESSAGE(
+       webhook_id="your_webhook_id",
+       webhook_token="your_webhook_token"
+   )
+   ```
+
+2. **Use specific message ID instead**:
+   ```python
    # Get message by ID (more reliable)
    message = await DISCORDBOT_GET_WEBHOOK_MESSAGE(
        webhook_id="your_webhook_id",
        webhook_token="your_webhook_token",
        message_id="specific_message_id"
    )
+   ```
+
+---
+
+## 🎯 Alternative Approaches
+
+### Method 1: Create Original Message First
+```python
+# Step 1: Send a webhook message with wait=true
+result = await DISCORDBOT_EXECUTE_WEBHOOK(
+    webhook_id="1430799795693420614",
+    webhook_token="your_token",
+    content="Creating original message",
+    wait=True
+)
+
+# Step 2: Now you can use original message tools
+original = await DISCORDBOT_GET_ORIGINAL_WEBHOOK_MESSAGE(
+    webhook_id="1430799795693420614",
+    webhook_token="your_token"
+)
+```
+
+### Method 2: Use Specific Message ID
+```python
+# Get a specific message by ID (more reliable)
+message = await DISCORDBOT_GET_WEBHOOK_MESSAGE(
+    webhook_id="1430799795693420614",
+    webhook_token="your_token",
+    message_id="1234567890123456789"
+)
+
+# Update specific message
+updated = await DISCORDBOT_UPDATE_WEBHOOK_MESSAGE(
+    webhook_id="1430799795693420614",
+    webhook_token="your_token",
+    message_id="1234567890123456789",
+    content="Updated message content"
+)
+
+# Delete specific message
+deleted = await DISCORDBOT_DELETE_WEBHOOK_MESSAGE(
+    webhook_id="1430799795693420614",
+    webhook_token="your_token",
+    message_id="1234567890123456789"
+)
+```
+
+### Method 3: List Recent Messages
+```python
+# Get recent messages in the channel
+messages = await DISCORDBOT_LIST_MESSAGES(
+    channel_id="your_channel_id",
+    limit=10
+)
+
+# Find webhook messages
+webhook_messages = [msg for msg in messages if msg.get('webhook_id')]
+```
+
+---
+
+## 📋 Best Practices
+
+### ✅ Do's
+- **Always use `wait: true`** when creating webhook messages
+- **Store message IDs** for future reference
+- **Use specific message ID tools** for reliability
+- **Handle errors gracefully** with try-catch blocks
+
+### ❌ Don'ts
+- **Don't rely on "original" message** without creating one first
+- **Don't assume webhook messages exist** without checking
+- **Don't use original message tools** without proper setup
+
+---
+
+## 🔧 Troubleshooting
+
+### If Original Message Tools Don't Work:
+1. **Check if webhook has sent messages** to the channel
+2. **Use DISCORDBOT_EXECUTE_WEBHOOK** with `wait: true` first
+3. **Use specific message ID tools** instead
+4. **Verify webhook permissions** and channel access
+
+### If You Need to Manage Multiple Messages:
+1. **Use DISCORDBOT_GET_WEBHOOK_MESSAGE** with specific message IDs
+2. **Use DISCORDBOT_UPDATE_WEBHOOK_MESSAGE** with specific message IDs
+3. **Use DISCORDBOT_DELETE_WEBHOOK_MESSAGE** with specific message IDs
+
+---
+
+## 🎯 Summary
+
+| Tool | Use Case | Reliability | Alternative |
+|------|----------|-------------|-------------|
+| `GET_ORIGINAL_WEBHOOK_MESSAGE` | Get first webhook message | ⚠️ Requires setup | `GET_WEBHOOK_MESSAGE` with ID |
+| `UPDATE_ORIGINAL_WEBHOOK_MESSAGE` | Update first webhook message | ⚠️ Requires setup | `UPDATE_WEBHOOK_MESSAGE` with ID |
+| `DELETE_ORIGINAL_WEBHOOK_MESSAGE` | Delete first webhook message | ⚠️ Requires setup | `DELETE_WEBHOOK_MESSAGE` with ID |
+
+**Recommendation**: Use specific message ID tools (`GET_WEBHOOK_MESSAGE`, `UPDATE_WEBHOOK_MESSAGE`, `DELETE_WEBHOOK_MESSAGE`) for better reliability and control.

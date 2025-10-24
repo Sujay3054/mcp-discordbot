@@ -463,3 +463,10 @@ This server includes production-ready features:
 - Thread support varies between tools (use `thread_name` vs `thread_id`)
 
 **Recommendation**: Start with the **Standard Webhook** for most use cases, only use the compatible webhooks when specifically migrating from Slack/GitHub systems.
+
+   # Get message by ID (more reliable)
+   message = await DISCORDBOT_GET_WEBHOOK_MESSAGE(
+       webhook_id="your_webhook_id",
+       webhook_token="your_webhook_token",
+       message_id="specific_message_id"
+   )
